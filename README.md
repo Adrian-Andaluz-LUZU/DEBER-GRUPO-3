@@ -315,7 +315,8 @@ FinAlgoritmo
 
 ##### Ejecución del programa
 
-<img width="" height="" alt="Captura de ejecución Ejercicio 2" src="" />
+<img width="1454" height="907" alt="image" src="https://github.com/user-attachments/assets/45afede2-90ca-4485-b8f5-8ea5ba3bc4f7" />
+
 
 ---
 
