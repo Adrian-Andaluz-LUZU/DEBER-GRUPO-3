@@ -165,3 +165,5 @@ FinAlgoritmo
 
 3. **Determinación adecuada de valores extremos:** 
    La lógica aplicada en la primera iteración (`i == 1`) para inicializar las variables `notaMax` y `notaMin` garantizó que las comparaciones subsecuentes fueran precisas, evitando fallas comunes asociadas a la inicialización arbitraria de valores con cero o números fuera de contexto.
+
+
