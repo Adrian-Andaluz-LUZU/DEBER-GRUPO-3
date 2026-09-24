@@ -983,3 +983,224 @@ FinAlgoritmo
 
 3. **Validación estricta de rangos cerrados:** 
    El uso del ciclo `while` para restringir la entrada a la condición $N \ge 2 \land N \le 10$ garantiza que los patrones visuales tengan dimensiones legibles y coherentes, evitando impresiones vacías ($N < 1$) o salidas excesivamente extensas en la consola.
+---
+### Ejercicio 7: Control de ventas de cafetería
+
+#### Descripción del Ejercicio
+El programa interactivo implementa un menú principal de opciones para la gestión de ventas de una cafetería universitaria. Permite registrar transacciones de venta seleccionando productos con precios fijos (Café: $1.00, Sándwich: $2.50, Jugo: $1.50, Empanada: $1.25) y especificando cantidades.
+
+El programa debe mantener el registro global para generar un reporte estadístico detallado que incluye:
+- Número total de ventas realizadas.
+- Cantidad total de productos vendidos.
+- Total de dinero recaudado ($).
+- Promedio de ingresos por venta.
+- Producto con mayor cantidad vendida.
+
+**Estructuras requeridas:** `do-while` para el menú interactivo, `switch` para la selección de productos/opciones, contadores, acumuladores y validaciones estrictas en todas las entradas[cite: 4].
+
+---
+
+#### Análisis del Problema
+- **Entrada:** Opción del menú principal ($1-4$), selección de producto ($1-4$) y cantidad deseada ($>0$)[cite: 4].
+- **Proceso:**
+  1. Usar un bucle `do-while` para mantener activo el menú principal hasta que el usuario elija la opción 4 (Salir)[cite: 4].
+  2. **Opción 1 (Registrar venta):**
+     - Solicitar el tipo de producto (validar que esté entre 1 y 4 con `while`)[cite: 4].
+     - Solicitar la cantidad (validar que sea $> 0$ con `while`)[cite: 4].
+     - Mediante una estructura `switch`, determinar el precio unitario, calcular el subtotal y acumular las unidades en el contador específico de dicho producto[cite: 4].
+     - Incrementar el contador general de ventas, el acumulador total de productos y la recaudación global[cite: 4].
+  3. **Opción 2 (Mostrar estadísticas):**
+     - Si el número de ventas es $0$, indicar que aún no hay registros[cite: 4].
+     - Si hay ventas, calcular el promedio ($\text{Recaudación Total} / \text{Número de Ventas}$)[cite: 4].
+     - Evaluar mediante condicionales `if / else` qué producto tiene el conteo de unidades acumuladas más alto[cite: 4].
+  4. **Opción 3 (Mostrar tabla de productos):** Mostrar la lista fija de productos con sus respectivos precios[cite: 4].
+  5. **Opción 4 (Salir):** Finalizar el ciclo del menú[cite: 4].
+- **Salida:** Reporte estadístico completo e interfaz interactiva del menú[cite: 4].
+
+---
+
+#### Estructuras utilizadas
+
+| Estructura | Uso en el Ejercicio |
+| :--- | :--- |
+| `do-while` | Mantener desplegado el menú principal de manera repetitiva hasta que el usuario elija la opción 4 (Salir)[cite: 4]. |
+| `switch` | Evaluar la opción elegida en el menú principal y determinar el precio unitario del producto seleccionado[cite: 4]. |
+| `while` | Validar que la opción del menú, la selección de productos ($1-4$) y la cantidad ingresada ($> 0$) sean válidas[cite: 4]. |
+| `if / else` | Prevenir la división para el cálculo de promedio sin ventas y determinar el producto más vendido comparando acumuladores[cite: 4]. |
+| Acumuladores | `totalRecaudado` (monto $), `totalProductos` (unidades) y acumuladores por producto (`cantCafe`, `cantSandwich`, etc.)[cite: 4]. |
+| Contadores | `numeroVentas` contabiliza cada transacción efectuada correctamente[cite: 4]. |
+
+---
+
+#### Diagrama de Flujo
+
+<img width="9732" height="14520" alt="image" src="https://github.com/user-attachments/assets/ed9e325c-b2cf-465f-8609-6d8e5582fe89" />
+
+
+---
+
+#### Pseudocódigo
+
+```text
+Algoritmo ControlVentasCafeteria
+    Definir opcion, producto, cantidad, numeroVentas, totalProductos Como Entero
+    Definir cantCafe, cantSandwich, cantJugo, cantEmpanada Como Entero
+    Definir precioUnitario, subtotal, totalRecaudado, promedioVenta Como Real
+    Definir mayorCantidad Como Entero
+    Definir productoMasVendido Como Texto
+
+    // Inicialización de variables globales
+    numeroVentas <- 0
+    totalProductos <- 0
+    totalRecaudado <- 0.0
+    cantCafe <- 0
+    cantSandwich <- 0
+    cantJugo <- 0
+    cantEmpanada <- 0
+
+    Hacer
+        Escribir "===================================="
+        Escribir "     CAFETERÍA UNIVERSITARIA        "
+        Escribir "===================================="
+        Escribir "1. Registrar venta"
+        Escribir "2. Mostrar estadísticas"
+        Escribir "3. Mostrar tabla de productos"
+        Escribir "4. Salir"
+        Escribir "===================================="
+        Escribir "Seleccione una opción: "
+        Leer opcion
+
+        Mientras opcion < 1 O opcion > 4 Hacer
+            Escribir "Opción inválida. Ingrese un valor entre 1 y 4: "
+            Leer opcion
+        FinMientras
+
+        Segun opcion Hacer
+            1:
+                Escribir "--- REGISTRAR VENTA ---"
+                Escribir "1. Café ($1.00)"
+                Escribir "2. Sándwich ($2.50)"
+                Escribir "3. Jugo ($1.50)"
+                Escribir "4. Empanada ($1.25)"
+                Escribir "Seleccione el producto (1-4): "
+                Leer producto
+
+                Mientras producto < 1 O producto > 4 Hacer
+                    Escribir "Producto no válido. Seleccione (1-4): "
+                    Leer producto
+                FinMientras
+
+                Escribir "Ingrese la cantidad: "
+                Leer cantidad
+
+                Mientras cantidad <= 0 Hacer
+                    Escribir "La cantidad debe ser mayor que cero. Reintente: "
+                    Leer cantidad
+                FinMientras
+
+                Segun producto Hacer
+                    1:
+                        precioUnitario <- 1.00
+                        cantCafe <- cantCafe + cantidad
+                    2:
+                        precioUnitario <- 2.50
+                        cantSandwich <- cantSandwich + cantidad
+                    3:
+                        precioUnitario <- 1.50
+                        cantJugo <- cantJugo + cantidad
+                    4:
+                        precioUnitario <- 1.25
+                        cantEmpanada <- cantEmpanada + cantidad
+                FinSegun
+
+                subtotal <- precioUnitario * cantidad
+                totalRecaudado <- totalRecaudado + subtotal
+                totalProductos <- totalProductos + cantidad
+                numeroVentas <- numeroVentas + 1
+
+                Escribir "Venta registrada con éxito. Subtotal: $", subtotal
+
+            2:
+                Escribir "--- REPORTES Y ESTADÍSTICAS ---"
+                Si numeroVentas == 0 Entonces
+                    Escribir "No hay ventas registradas en el sistema aún."
+                SiNo
+                    promedioVenta <- totalRecaudado / numeroVentas
+
+                    // Determinar el producto con mayor cantidad vendida
+                    mayorCantidad <- cantCafe
+                    productoMasVendido <- "Café"
+
+                    Si cantSandwich > mayorCantidad Entonces
+                        mayorCantidad <- cantSandwich
+                        productoMasVendido <- "Sándwich"
+                    FinSi
+                    Si cantJugo > mayorCantidad Entonces
+                        mayorCantidad <- cantJugo
+                        productoMasVendido <- "Jugo"
+                    FinSi
+                    Si cantEmpanada > mayorCantidad Entonces
+                        mayorCantidad <- cantEmpanada
+                        productoMasVendido <- "Empanada"
+                    FinSi
+
+                    Escribir "Número de ventas: ", numeroVentas
+                    Escribir "Cantidad total de productos: ", totalProductos
+                    Escribir "Total recaudado: $", totalRecaudado
+                    Escribir "Promedio por venta: $", promedioVenta
+                    Escribir "Producto más vendido: ", productoMasVendido, " (", mayorCantidad, " unidades)"
+                FinSi
+
+            3:
+                Escribir "--- TABLA DE PRODUCTOS ---"
+                Escribir "1. Café       $1.00"
+                Escribir "2. Sándwich   $2.50"
+                Escribir "3. Jugo       $1.50"
+                Escribir "4. Empanada   $1.25"
+
+            4:
+                Escribir "Gracias por utilizar el sistema de la Cafetería Universitaria."
+        FinSegun
+    Hasta Que opcion == 4
+FinAlgoritmo
+```
+---
+
+#### Casos de prueba
+
+##### Prueba de escritorio — Ejercicio 7 (Simulación de ventas)
+
+| Transacción | Opción | Producto Seleccionado | Cantidad | Subtotal ($) | `numeroVentas` | `totalProductos` | `totalRecaudado` ($) | Promedio ($) | Producto más vendido |
+| :--- | :---: | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **Inicio** | - | - | - | - | 0 | 0 | 0.00 | - | Ninguno |
+| **Venta 1** | 1 | 2 (Sándwich $2.50) | 2 | 5.00 | 1 | 2 | 5.00 | 5.00 | Sándwich (2) |
+| **Venta 2** | 1 | 1 (Café $1.00) | 3 | 3.00 | 2 | 5 | 8.00 | 4.00 | Café (3) |
+| **Venta 3** | 1 | 4 (Empanada $1.25)| 1 | 1.25 | 3 | 6 | 9.25 | 3.08 | Café (3) |
+| **Estadísticas**| 2 | - | - | - | 3 | 6 | 9.25 | 3.08 | Café (3 unidades) |
+
+##### Casos de validación
+
+| Caso | Entrada | Resultado esperado |
+| :--- | :--- | :--- |
+| **Opción menú inválida** | `opcion = 0` o `opcion = 5` | Muestra error de opción e insiste en pedir valor entre 1 y 4[cite: 4]. |
+| **Producto no existente** | `producto = 8` | Muestra `"Producto no válido"` y solicita seleccionar entre 1 y 4[cite: 4]. |
+| **Cantidad cero o negativa**| `cantidad = 0` o `cantidad = -3` | Muestra error y exige ingresar una cantidad mayor a cero[cite: 4]. |
+| **Consulta vacía** | Seleccionar opción 2 al iniciar | Informa que no existen ventas registradas aún para evitar divisiones para cero[cite: 4]. |
+| **Flujo regular completo** | Registrar ventas e ir a opción 2 | Presenta las 5 métricas requeridas actualizadas correctamente[cite: 4]. |
+
+---
+#### Capturas y evidencias
+<img width="703" height="482" alt="Captura de pantalla 2026-09-24 122745" src="https://github.com/user-attachments/assets/de52064f-2657-4f8c-b1d6-98f0a1d4d9c1" />
+
+---
+#### Conclusiones
+
+1. **Gestión de flujos mediante la estructura `do-while`:** 
+   La implementación de un ciclo repetitivo `do-while` en la raíz del programa garantiza la persistencia del estado en memoria, permitiendo registrar múltiples compras consecutivas sin perder la acumulación global hasta que el usuario decida salir explícitamente[cite: 4].
+
+2. **Modularidad mediante selección condicional (`switch`):** 
+   El uso de la sentencia `switch` simplifica la toma de decisiones al bifurcar limpia y eficientemente los precios y acumuladores específicos por producto, evitando estructuras de decisiones anidadas complejas[cite: 4].
+
+3. **Robustez mediante validación integral de entradas:** 
+   La aplicación de bucles `while` de validación en cada nivel de interacción (menú, selección de producto y cantidad de unidades) protege al sistema frente a datos anómalos, previniendo incoherencias financieras o errores de ejecución[cite: 4].
+
