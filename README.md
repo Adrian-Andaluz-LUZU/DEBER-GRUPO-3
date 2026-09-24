@@ -462,3 +462,221 @@ FinAlgoritmo
 
 3. **Manejo correcto de casos extremos ($N = 1$):** 
    El análisis condicional antes del cálculo del promedio evita posibles indeterminaciones o errores de división por cero ($\frac{0}{0}$) cuando el rango $2 \le N$ no contiene ningún número par.
+
+
+---
+
+### Ejercicio 4. Cajero automático básico
+
+Desarrolle un programa que simule un cajero automático con el siguiente menú:
+
+```text
+==========================
+     CAJERO ACADÉMICO
+==========================
+1. Consultar saldo
+2. Depositar
+3. Retirar
+4. Mostrar movimientos
+5. Salir
+==========================
+```
+
+El usuario comenzará con un saldo de **$100**. El programa deberá permanecer activo hasta seleccionar **Salir**.
+
+Validaciones:
+- No permitir depósitos negativos;
+- No permitir retiros negativos;
+- No permitir retirar más dinero del disponible;
+- No aceptar opciones inexistentes.
+
+Al finalizar deberá mostrar:
+
+```text
+Depósitos realizados:
+Retiros realizados:
+Total depositado:
+Total retirado:
+Saldo final:
+```
+
+#### Estructuras utilizadas
+
+| Estructura | Uso en el Ejercicio 4 |
+| :--- | :--- |
+| `do-while` | Mantener el menú activo hasta que el usuario seleccione la opción 5 (Salir). |
+| `switch` | Ejecutar la acción correspondiente a cada opción del menú (1 a 5) y detectar opciones inexistentes con `default`. |
+| `if / else` | Validar los montos de depósito y retiro, y verificar que el retiro no supere el saldo. |
+| Contadores | `depositos` y `retiros` cuentan las transacciones realizadas con éxito. |
+| Acumuladores | `totalDepositado` y `totalRetirado` suman los montos; `saldo` se actualiza en cada operación. |
+
+> **Caso límite:** retirar exactamente el saldo disponible ($100), que debe permitirse y dejar el saldo en $0.
+
+#### Análisis
+
+##### Entradas
+- Opción del menú `opcion` (valores del 1 al 5).
+- Monto a depositar `monto` (debe ser mayor que 0).
+- Monto a retirar `monto` (debe ser mayor que 0 y no superar el saldo).
+- Dato inicial fijo: `saldo = 100`.
+
+##### Restricciones y validaciones
+- Uso de la estructura `do-while` para repetir el menú hasta que `opcion = 5`.
+- No se permiten depósitos negativos ni iguales a cero.
+- No se permiten retiros negativos ni iguales a cero.
+- No se permite retirar un monto mayor que el saldo disponible.
+- Cualquier opción distinta de 1, 2, 3, 4 o 5 muestra un mensaje de error y vuelve a mostrar el menú.
+
+##### Procesos
+- Mostrar el menú y leer la opción elegida.
+- Consultar saldo: mostrar el valor actual de `saldo`.
+- Depositar: si el monto es válido, sumarlo al `saldo` y a `totalDepositado`, e incrementar `depositos`.
+- Retirar: si el monto es válido y hay saldo suficiente, restarlo del `saldo`, sumarlo a `totalRetirado` e incrementar `retiros`.
+- Mostrar movimientos: presentar el resumen de depósitos, retiros y totales acumulados hasta el momento.
+- Salir: terminar el ciclo y mostrar el resumen final.
+
+##### Salidas
+- Saldo actual después de cada operación.
+- Mensajes de error para montos u opciones inválidas y para fondos insuficientes.
+- Resumen final: depósitos realizados, retiros realizados, total depositado, total retirado y saldo final.
+
+#### Diagrama de flujo
+<img width="2601" height="1695" alt="image" src="https://github.com/user-attachments/assets/3a65b300-6290-417b-be97-f6d998deb70e" />
+
+
+
+#### Pseudocódigo
+
+```text
+Algoritmo CajeroAcademico
+    Definir opcion, depositos, retiros Como Entero
+    Definir saldo, monto, totalDepositado, totalRetirado Como Real
+
+    saldo <- 100
+    depositos <- 0
+    retiros <- 0
+    totalDepositado <- 0
+    totalRetirado <- 0
+
+    Repetir
+        Escribir "=========================="
+        Escribir "     CAJERO ACADEMICO"
+        Escribir "=========================="
+        Escribir "1. Consultar saldo"
+        Escribir "2. Depositar"
+        Escribir "3. Retirar"
+        Escribir "4. Mostrar movimientos"
+        Escribir "5. Salir"
+        Escribir "=========================="
+        Escribir "Seleccione una opcion: "
+        Leer opcion
+
+        Segun opcion Hacer
+            Caso 1:
+                Escribir "Saldo actual: $", saldo
+
+            Caso 2:
+                Escribir "Ingrese el monto a depositar: "
+                Leer monto
+                Si monto <= 0 Entonces
+                    Escribir "Monto invalido. Debe ser mayor que cero"
+                SiNo
+                    saldo <- saldo + monto
+                    depositos <- depositos + 1
+                    totalDepositado <- totalDepositado + monto
+                    Escribir "Deposito exitoso. Saldo actual: $", saldo
+                FinSi
+
+            Caso 3:
+                Escribir "Ingrese el monto a retirar: "
+                Leer monto
+                Si monto <= 0 Entonces
+                    Escribir "Monto invalido. Debe ser mayor que cero"
+                SiNo
+                    Si monto > saldo Entonces
+                        Escribir "Fondos insuficientes. Saldo disponible: $", saldo
+                    SiNo
+                        saldo <- saldo - monto
+                        retiros <- retiros + 1
+                        totalRetirado <- totalRetirado + monto
+                        Escribir "Retiro exitoso. Saldo actual: $", saldo
+                    FinSi
+                FinSi
+
+            Caso 4:
+                Escribir "Depositos realizados: ", depositos
+                Escribir "Retiros realizados: ", retiros
+                Escribir "Total depositado: $", totalDepositado
+                Escribir "Total retirado: $", totalRetirado
+
+            Caso 5:
+                Escribir "Saliendo del cajero..."
+
+            De Otro Modo:
+                Escribir "Opcion invalida. Elija una opcion entre 1 y 5"
+        FinSegun
+    Hasta Que opcion = 5
+
+    Escribir "Depositos realizados: ", depositos
+    Escribir "Retiros realizados: ", retiros
+    Escribir "Total depositado: $", totalDepositado
+    Escribir "Total retirado: $", totalRetirado
+    Escribir "Saldo final: $", saldo
+FinAlgoritmo
+```
+
+---
+
+#### Casos de prueba
+
+##### Prueba de escritorio — Ejercicio 4 (saldo inicial = 100)
+
+| Paso | opcion | monto | Validación | saldo | depositos | retiros | totalDepositado | totalRetirado | Salida |
+| :--- | :---: | :---: | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
+| **Inicio** | - | - | - | 100 | 0 | 0 | 0 | 0 | - |
+| **Paso 1** | 2 | 50 | Válido (50 > 0) | 150 | 1 | 0 | 50 | 0 | Depósito exitoso |
+| **Paso 2** | 3 | 30 | Válido (30 <= 150) | 120 | 1 | 1 | 50 | 30 | Retiro exitoso |
+| **Paso 3** | 3 | 500 | Inválido (500 > 120) | 120 | 1 | 1 | 50 | 30 | Fondos insuficientes |
+| **Paso 4** | 2 | -10 | Inválido (-10 <= 0) | 120 | 1 | 1 | 50 | 30 | Monto inválido |
+| **Paso 5** | 7 | - | Opción inexistente | 120 | 1 | 1 | 50 | 30 | Opción inválida |
+| **Paso 6** | 1 | - | - | 120 | 1 | 1 | 50 | 30 | Saldo actual: $120 |
+| **Paso 7** | 5 | - | Salir | 120 | 1 | 1 | 50 | 30 | Muestra el resumen final |
+| **Fin del ciclo** | - | - | - | 120 | 1 | 1 | 50 | 30 | Saldo final: $120 |
+
+##### Casos de validación
+
+| Caso | Entrada | Resultado esperado |
+| :--- | :--- | :--- |
+| **Depósito negativo** | `opcion = 2`, `monto = -20` | Muestra `"Monto invalido. Debe ser mayor que cero"`; el saldo y los contadores no cambian. |
+| **Depósito igual a cero** | `opcion = 2`, `monto = 0` | Muestra `"Monto invalido. Debe ser mayor que cero"`. |
+| **Retiro negativo** | `opcion = 3`, `monto = -15` | Muestra `"Monto invalido. Debe ser mayor que cero"`; el saldo no cambia. |
+| **Retiro mayor al saldo** | `opcion = 3`, `monto = 150` (saldo = 100) | Muestra `"Fondos insuficientes"`; no se registra el retiro. |
+| **Retiro igual al saldo (límite)** | `opcion = 3`, `monto = 100` (saldo = 100) | Retiro exitoso; el saldo queda en $0. |
+| **Opción inexistente** | `opcion = 0`, `6` o `9` | Muestra `"Opcion invalida"` y vuelve a mostrar el menú. |
+| **Mostrar movimientos** | `opcion = 4` | Muestra depósitos, retiros y totales acumulados hasta ese momento. |
+| **Salir sin operaciones** | `opcion = 5` | Resumen final: 0 depósitos, 0 retiros, total depositado $0, total retirado $0 y saldo final $100. |
+
+---
+---
+
+#### Capturas y evidencias
+
+##### Ejecución del programa
+
+<img width="1454" height="485" alt="image" src="https://github.com/user-attachments/assets/26e3a3cc-202b-488d-935d-855db0b846d4" />
+
+---
+
+#### Conclusiones
+
+1. **Menú persistente con `do-while`:**
+   El ciclo `do-while` garantizó que el menú se mostrara al menos una vez y se repitiera hasta que el usuario eligiera la opción Salir, permitiendo varias operaciones en una misma ejecución.
+
+2. **Selección clara de opciones con `switch`:**
+   La estructura `switch` organizó cada operación del cajero en su propio caso y, con `default`, permitió rechazar opciones inexistentes sin detener el programa.
+
+3. **Control de operaciones con contadores y acumuladores:**
+   Los contadores (`depositos`, `retiros`) y los acumuladores (`totalDepositado`, `totalRetirado`, `saldo`) permitieron llevar el registro de todas las transacciones y mostrar el resumen final de forma exacta.
+
+4. **Validaciones que protegen el saldo:**
+   Las condiciones sobre los montos y el saldo disponible evitaron depósitos o retiros inválidos y saldos negativos, manteniendo la integridad de los datos del cajero.S
