@@ -142,3 +142,26 @@ FinAlgoritmo
 | **Nota mayor al rango** | `nota = 11` | Muestra `"Nota incorrecta. Debe estar entre 0 y 10."` y vuelve a solicitar la nota. |
 | **Nota límite de aprobación** | `nota = 7.0` | Se contabiliza como **aprobado** (`aprobados++`). |
 | **Un solo estudiante** | `n = 1`, `nota = 8.0` | Suma: 8.0, Promedio: 8.00, Aprobados: 1, Reprobados: 0, Nota más alta y más baja: 8.0. |
+
+---
+---
+
+#### Capturas y evidencias
+
+##### Ejecución del programa
+
+<img width="446" height="213" alt="Captura de pantalla 2026-09-24 085850" src="https://github.com/user-attachments/assets/76d9d94f-7b02-42a1-83b8-5c9edc1c089b" />
+
+
+---
+
+#### Conclusiones
+
+1. **Garantía de integridad de datos mediante validación de entradas:** 
+   La implementación de los ciclos `while` permitió controlar eficazmente la entrada de datos, asegurando que el número de estudiantes fuera estrictamente positivo ($N > 0$) y que cada calificación se mantuviera dentro del rango permitido $[0, 10]$. Esto evita posibles errores en tiempo de ejecución y cálculos erróneos en el promedio general.
+
+2. **Eficiencia en el procesamiento de iteraciones definidas:** 
+   El uso del ciclo `for` resultó ser la estructura óptima para procesar exactamente $N$ estudiantes, permitiendo actualizar simultáneamente en cada paso la suma acumulada, el recuento de aprobados/reprobados y el control dinámico de las notas máxima y mínima.
+
+3. **Determinación adecuada de valores extremos:** 
+   La lógica aplicada en la primera iteración (`i == 1`) para inicializar las variables `notaMax` y `notaMin` garantizó que las comparaciones subsecuentes fueran precisas, evitando fallas comunes asociadas a la inicialización arbitraria de valores con cero o números fuera de contexto.
