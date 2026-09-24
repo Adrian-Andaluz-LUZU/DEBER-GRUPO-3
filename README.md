@@ -1204,3 +1204,262 @@ FinAlgoritmo
 3. **Robustez mediante validación integral de entradas:** 
    La aplicación de bucles `while` de validación en cada nivel de interacción (menú, selección de producto y cantidad de unidades) protege al sistema frente a datos anómalos, previniendo incoherencias financieras o errores de ejecución[cite: 4].
 
+   ---
+   # Ejercicio 8 - Detector y Depurador de Errores
+
+##  Enunciado
+
+Analizar un código en Java que contiene un error relacionado con ciclos, identificar el problema, explicar la causa, corregirlo, elaborar una tabla de trazas y demostrar que la solución funciona correctamente.
+
+---
+
+##  Código original
+
+```java
+public class Main {
+    public static void main(String[] args) {
+
+        int numero = 1;
+
+        while (numero <= 10) {
+            System.out.println(numero);
+        }
+    }
+}
+```
+
+---
+
+##  Error encontrado
+
+El error se encuentra dentro del ciclo `while`.
+
+La variable `numero` inicia con el valor `1`, pero dentro del ciclo nunca se modifica.
+
+La condición es:
+
+```java
+numero <= 10
+```
+
+Como `numero` siempre permanece en `1`, la condición siempre será verdadera.
+
+Por esta razón se genera un **ciclo infinito** y el programa imprime continuamente:
+
+```text
+1
+1
+1
+1
+...
+```
+
+---
+
+##  Causa
+
+La causa del error es que falta incrementar la variable `numero`.
+
+Dentro del ciclo debe agregarse:
+
+```java
+numero++;
+```
+
+Esta instrucción aumenta el valor de `numero` en uno después de cada iteración.
+
+---
+
+##  Solución
+
+Código corregido:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+
+        int numero = 1;
+
+        while (numero <= 10) {
+            System.out.println(numero);
+            numero++;
+        }
+    }
+}
+```
+
+---
+
+##  Explicación de la solución
+
+El programa comienza con:
+
+```java
+int numero = 1;
+```
+
+Luego se utiliza un ciclo `while`:
+
+```java
+while (numero <= 10)
+```
+
+El ciclo se ejecuta mientras `numero` sea menor o igual que 10.
+
+En cada repetición se ejecutan dos instrucciones:
+
+```java
+System.out.println(numero);
+numero++;
+```
+
+La primera muestra el número en pantalla y la segunda aumenta su valor en uno.
+
+Cuando `numero` llega a 11, la condición:
+
+```java
+numero <= 10
+```
+
+se vuelve falsa y el ciclo termina.
+
+---
+
+##  Tabla de trazas
+
+| Iteración | numero | Condición | Salida | Nuevo numero |
+|-----------|--------|-----------|--------|--------------|
+| 1 | 1 | Verdadero | 1 | 2 |
+| 2 | 2 | Verdadero | 2 | 3 |
+| 3 | 3 | Verdadero | 3 | 4 |
+| 4 | 4 | Verdadero | 4 | 5 |
+| 5 | 5 | Verdadero | 5 | 6 |
+| 6 | 6 | Verdadero | 6 | 7 |
+| 7 | 7 | Verdadero | 7 | 8 |
+| 8 | 8 | Verdadero | 8 | 9 |
+| 9 | 9 | Verdadero | 9 | 10 |
+| 10 | 10 | Verdadero | 10 | 11 |
+| 11 | 11 | Falso | - | Fin |
+
+---
+
+##  Resultado
+
+Al ejecutar correctamente el programa se obtiene:
+
+```text
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+
+El programa termina correctamente cuando `numero` llega a 11.
+
+---
+
+#  Segundo ejemplo creado voluntariamente
+
+## Código con error
+
+```java
+public class EjemploError {
+    public static void main(String[] args) {
+
+        int contador = 1;
+
+        while (contador <= 5) {
+            System.out.println(contador);
+            contador--;
+        }
+    }
+}
+```
+
+## Error encontrado
+
+El error está en:
+
+```java
+contador--;
+```
+
+En lugar de aumentar el contador, esta instrucción lo disminuye.
+
+Los valores serían:
+
+```text
+1
+0
+-1
+-2
+-3
+...
+```
+
+La condición:
+
+```java
+contador <= 5
+```
+
+continúa siendo verdadera, por lo que se produce un ciclo infinito.
+
+---
+
+##  Corrección del segundo ejemplo
+
+Se debe cambiar:
+
+```java
+contador--;
+```
+
+por:
+
+```java
+contador++;
+```
+
+Código corregido:
+
+```java
+public class EjemploError {
+    public static void main(String[] args) {
+
+        int contador = 1;
+
+        while (contador <= 5) {
+            System.out.println(contador);
+            contador++;
+        }
+    }
+}
+```
+
+### Resultado
+
+```text
+1
+2
+3
+4
+5
+```
+
+---
+
+##  Conclusión
+
+El error principal del ejercicio se produce porque la variable utilizada para controlar el ciclo no cambia de valor. Esto provoca que la condición del `while` permanezca verdadera y genere un ciclo infinito.
+
+La solución consiste en modificar correctamente la variable de control mediante `numero++`. De esta manera, el programa puede avanzar hasta que la condición sea falsa y finalizar correctamente.
+
+Este ejercicio permite comprender la importancia de las variables de control en los ciclos `while` y la utilidad de las tablas de trazas para detectar errores de programación.
+
