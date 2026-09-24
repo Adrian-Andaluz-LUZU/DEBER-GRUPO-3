@@ -680,3 +680,163 @@ FinAlgoritmo
 
 4. **Validaciones que protegen el saldo:**
    Las condiciones sobre los montos y el saldo disponible evitaron depósitos o retiros inválidos y saldos negativos, manteniendo la integridad de los datos del cajero.S
+---
+# Ejercicio5: Control de Inventario y Ventas en Tienda Universitaria
+
+## Descripción del Ejercicio
+Desarrollar un sistema automatizado para una tienda universitaria que permita gestionar las transacciones de venta de diferentes productos (Libros, Esferos y Cuadernos). El programa debe solicitar la cantidad de artículos y el tipo de producto seleccionado por el cliente, calcular el subtotal aplicando descuentos basados en el volumen de compra, calcular el impuesto correspondiente y registrar el total acumulado de las ventas al finalizar la jornada laboral.
+
+---
+
+##  Tabla de Estructuras Utilizadas
+
+| Estructura / Elemento | Tipo de Dato | Descripción |
+| :--- | :--- | :--- |
+| `opcion` | Entero | Almacena la categoría del producto seleccionado (1: Libro, 2: Esfero, 3: Cuaderno). |
+| `cantidad` | Entero | Número de unidades que desea comprar el cliente (Debe ser mayor a 0). |
+| `precioUnitario` | Real | Costo base por unidad según el producto seleccionado. |
+| `subtotal` | Real | Resultado de multiplicar la cantidad por el precio unitario. |
+| `descuento` | Real | Porcentaje o valor deducido del subtotal si cumple con los criterios de volumen. |
+| `totalPagar` | Real | Monto final a cancelar por el cliente después de aplicar descuentos e impuestos. |
+| `contLibros`, `contEsferos`, `contCuadernos` | Entero | Contadores independientes para llevar el registro de unidades vendidas por categoría. |
+| `acumVentas` | Real | Acumulador financiero que suma el total de los ingresos obtenidos en el día. |
+| `repetir` / `op` | Caracter | Bandera de control para mantener activo el ciclo de ventas (`S`/`N`). |
+
+---
+
+##  Análisis
+* **Entradas:** 
+  * `opcion`: Opción numérica que define el tipo de artículo.
+  * `cantidad`: Cantidad de unidades a comprar.
+  * `op`: Carácter de control para continuar o finalizar el sistema de ventas.
+* **Procesos:**
+  * Validar que la opción del producto se encuentre dentro del rango establecido (1 a 3).
+  * Validar mediante un ciclo que la cantidad ingresada sea estrictamente mayor a cero.
+  * Asignar el precio unitario correspondiente utilizando una estructura de selección múltiple (`Segun` / `switch`).
+  * Aplicar un descuento condicional del 10% si el subtotal supera los $50.00.
+  * Calcular el impuesto (IVA 15%) sobre el monto con descuento.
+  * Actualizar los contadores de artículos y el acumulador financiero general de la tienda.
+* **Salidas:** 
+  * Ticket de cobro individual para cada cliente.
+  * Reporte final de cierre de caja con la cantidad total de artículos vendidos y el ingreso económico acumulado.
+
+---
+
+##  Diagrama de Flujo
+
+<img width="613" height="1600" alt="image" src="https://github.com/user-attachments/assets/33b6b18a-eda7-47d1-afd5-423c5f2cee2a" />
+
+---
+
+##  Pseudocódigo
+
+```text
+Proceso TiendaUniversitaria
+    Definir opcion, cantidad, contLibros, contEsferos, contCuadernos Como Entero
+    Definir precioUnitario, subtotal, descuento, iva, totalPagar, acumVentas Como Real
+    Definir respuesta Como Caracter
+    
+    contLibros <- 0
+    contEsferos <- 0
+    contCuadernos <- 0
+    acumVentas <- 0.0
+    
+    Repetir
+        Escribir "========================================"
+        Escribir "       SISTEMA DE VENTAS - TIENDA       "
+        Escribir "========================================"
+        Escribir "Seleccione el producto:"
+        Escribir "1. Libro ($15.00 c/u)"
+        Escribir "2. Esfero ($1.25 c/u)"
+        Escribir "3. Cuaderno ($3.50 c/u)"
+        Leer opcion
+        
+        Si opcion < 1 O opcion > 3 Entonces
+            Escribir "¡Error! Producto no válido."
+        Sino
+            Repetir
+                Escribir "Ingrese la cantidad a comprar:"
+                Leer cantidad
+                Si cantidad <= 0 Entonces
+                    Escribir "¡Error! La cantidad debe ser mayor a cero."
+                FinSi
+            Hasta Que cantidad > 0
+            
+            Segun opcion Hacer
+                1:
+                    precioUnitario <- 15.00
+                    contLibros <- contLibros + cantidad
+                2:
+                    precioUnitario <- 1.25
+                    contEsferos <- contEsferos + cantidad
+                3:
+                    precioUnitario <- 3.50
+                    contCuadernos <- contCuadernos + cantidad
+            FinSegun
+            
+            subtotal <- cantidad * precioUnitario
+            
+            // Aplicar descuento del 10% si la compra supera los $50
+            Si subtotal > 50.00 Entonces
+                descuento <- subtotal * 0.10
+            Sino
+                descuento <- 0.0
+            FinSi
+            
+            iva <- (subtotal - descuento) * 0.15
+            totalPagar <- (subtotal - descuento) + 1va
+            acumVentas <- acumVentas + totalPagar
+            
+            Escribir "----------------------------------"
+            Escribir "Subtotal: $", subtotal
+            Escribir "Descuento aplicado: $", descuento
+            Escribir "IVA (15%): $", iva
+            Escribir "Total a Pagar: $", totalPagar
+            Escribir "----------------------------------"
+        FinSi
+        
+        Escribir "¿Desea realizar otra venta? (S/N):"
+        Leer respuesta
+    Hasta Que respuesta = 'N' O respuesta = 'n'
+    
+    Escribir ""
+    Escribir "===== REPORTE DE CIERRE DE CAJA ====="
+    Escribir "Total Libros vendidos: ", contLibros
+    Escribir "Total Esferos vendidos: ", contEsferos
+    Escribir "Total Cuadernos vendidos: ", contCuadernos
+    Escribir "Ingresos Totales Acumulados: $", acumVentas
+    Escribir "====================================="
+FinProceso
+```
+---
+##  Prueba de Escritorio
+
+| Paso | Opción Ingresada | Cantidad | Precio Unitario | Subtotal | Descuento | Total a Pagar | Acumulador Ventas |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **1** | 1 (Libro) | 4 | $15.00 | $60.00 | $6.00 | $62.10 | $62.10 |
+| **2** | 2 (Esfero) | 10 | $1.25 | $12.50 | $0.00 | $14.38 | $76.48 |
+| **3** | 3 (Cuaderno) | 20 | $3.50 | $70.00 | $7.00 | $72.45 | $148.93 |
+
+---
+
+##  Casos de Validación
+
+* **Validación de Cantidad Negativa o Cero:**
+  * *Entrada:* Opción = 1, Cantidad = `0` o `-5`.
+  * *Comportamiento:* El sistema detecta el error mediante la estructura repetitiva auxiliar, muestra una advertencia en pantalla y bloquea el avance del cálculo hasta que se ingrese un valor positivo válido.
+* **Validación de Opción Fuera de Rango:**
+  * *Entrada:* Opción = `8`.
+  * *Comportamiento:* El sistema intercepta el error con la estructura condicional simple, advierte al usuario sobre el código de producto inexistente y reinicia el flujo de selección sin alterar las estadísticas de caja.
+
+---
+
+##  Capturas y Evidencias
+
+<img width="1600" height="922" alt="image" src="https://github.com/user-attachments/assets/e8084441-77c3-4678-859c-69d6e3860610" />
+
+---
+
+##  Conclusiones
+* La implementación de ciclos interactivos condicionales (`Repetir-Hasta Que`) permite modelar con precisión sistemas de punto de venta comerciales donde el flujo operativo no tiene un límite fijo de transacciones previas.
+* El uso correcto de estructuras de selección múltiple (`Segun`) facilita la modularización de costos unitarios y asegura la correcta contabilización independiente de los artículos comercializados.
+* El manejo de acumuladores financieros y condicionales lógicos para descuentos e impuestos garantiza la precisión en la emisión de reportes gerenciales para el cierre de caja institucional.
