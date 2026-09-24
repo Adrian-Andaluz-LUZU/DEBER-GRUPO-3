@@ -840,3 +840,146 @@ FinProceso
 * La implementación de ciclos interactivos condicionales (`Repetir-Hasta Que`) permite modelar con precisión sistemas de punto de venta comerciales donde el flujo operativo no tiene un límite fijo de transacciones previas.
 * El uso correcto de estructuras de selección múltiple (`Segun`) facilita la modularización de costos unitarios y asegura la correcta contabilización independiente de los artículos comercializados.
 * El manejo de acumuladores financieros y condicionales lógicos para descuentos e impuestos garantiza la precisión en la emisión de reportes gerenciales para el cierre de caja institucional.
+---
+### Ejercicio 6: Triángulo y patrones
+
+#### Descripción del Ejercicio
+El programa solicita al usuario un número entero $N$ que debe estar obligatoriamente comprendido entre 2 y 10. Una vez validada la entrada, el programa genera tres patrones gráficos consecutivos utilizando caracteres y números:
+
+1. **Triángulo de asteriscos creciente:** Muestra $N$ filas donde la fila $i$ contiene $i$ asteriscos.
+2. **Triángulo de asteriscos decreciente:** Muestra $N$ filas donde la primera fila contiene $N$ asteriscos y va disminuyendo hasta 1 asterisco.
+3. **Triángulo numérico creciente:** Muestra $N$ filas donde la fila $i$ muestra una secuencia de números del 1 al $i$.
+
+---
+
+#### Análisis del Problema
+- **Entrada:** Un número entero $N$.
+- **Proceso:**
+  1. Validar el ingreso de $N$ mediante un ciclo `while` para asegurar que $2 \le N \le 10$. Si la condición no se cumple, pedir la entrada nuevamente.
+  2. **Patrón 1 (Asteriscos creciente):** Usar un ciclo exterior $i$ de 1 a $N$. Dentro, un ciclo interior $j$ de 1 a $i$ imprimiendo `*` sin salto de línea. Salto de línea al finalizar cada fila.
+  3. **Patrón 2 (Asteriscos decreciente):** Usar un ciclo exterior $i$ de $N$ bajando hasta 1. Dentro, un ciclo interior $j$ de 1 a $i$ imprimiendo `*`. Salto de línea al terminar cada fila.
+  4. **Patrón 3 (Números creciente):** Usar un ciclo exterior $i$ de 1 a $N$. Dentro, un ciclo interior $j$ de 1 a $i$ imprimiendo el valor de $j$. Salto de línea al terminar cada fila.
+- **Salida:** Tres patrones impresos ordenadamente en la consola.
+
+---
+
+#### Estructuras utilizadas
+
+| Estructura | Uso en el Ejercicio |
+| :--- | :--- |
+| `while` | Validar que el número ingresado por el usuario esté estrictamente dentro del rango $[2, 10]$. |
+| `for` (Exterior) | Controlar el número de filas en cada uno de los tres patrones de triángulos. |
+| `for` (Interior) | Controlar el número de columnas (caracteres `*` o números) que se imprimen en la fila actual. |
+| Contadores de ciclos | Las variables de iteración (`i` y `j`) actúan como contadores para controlar la cantidad de caracteres por fila. |
+
+---
+
+#### Diagrama de Flujo
+
+<img width="815" height="1600" alt="image" src="https://github.com/user-attachments/assets/c2d10792-ab61-472f-aeef-b7f8be0b0461" />
+
+
+---
+
+#### Pseudocódigo
+
+```text
+Algoritmo TrianguloYPatrones
+    Definir N, i, j Como Entero
+
+    // Validación del número N entre 2 y 10
+    Escribir "Ingrese un numero entre 2 y 10: "
+    Leer N
+
+    Mientras N < 2 O N > 10 Hacer
+        Escribir "El numero debe estar estrictamente entre 2 y 10."
+        Escribir "Ingrese nuevamente el numero: "
+        Leer N
+    FinMientras
+
+    // Patrón 1: Triángulo creciente de asteriscos
+    Escribir "Patrón 1:"
+    Para i <- 1 Hasta N Con Paso 1 Hacer
+        Para j <- 1 Hasta i Con Paso 1 Hacer
+            Escribir "*" Sin Bajar
+        FinPara
+        Escribir ""
+    FinPara
+
+    Escribir "" // Separador
+
+    // Patrón 2: Triángulo decreciente de asteriscos
+    Escribir "Patrón 2:"
+    Para i <- N Hasta 1 Con Paso -1 Hacer
+        Para j <- 1 Hasta i Con Paso 1 Hacer
+            Escribir "*" Sin Bajar
+        FinPara
+        Escribir ""
+    FinPara
+
+    Escribir "" // Separador
+
+    // Patrón 3: Triángulo numérico creciente
+    Escribir "Patrón 3:"
+    Para i <- 1 Hasta N Con Paso 1 Hacer
+        Para j <- 1 Hasta i Con Paso 1 Hacer
+            Escribir j Sin Bajar
+        FinPara
+        Escribir ""
+    FinPara
+FinAlgoritmo
+```
+---
+#### Estructuras utilizadas
+
+| Estructura | Uso en el Ejercicio |
+| :--- | :--- |
+| `while` | Validar que el número ingresado por el usuario esté estrictamente dentro del rango de $[2, 10]$. |
+| `for` (Exterior) | Controlar el número de filas en cada uno de los tres patrones de triángulos. |
+| `for` (Interior) | Controlar el número de columnas (caracteres `*` o números) que se imprimen en la fila actual. |
+| Contadores de ciclos | Las variables de iteración (`i` y `j`) actúan como contadores para controlar la cantidad de caracteres por fila. |
+
+---
+
+#### Casos de prueba
+
+##### Prueba de escritorio — Ejercicio 6 (Tabla de trazas de interacción entre ciclos para $N = 3$)
+
+| Patrón | Fila (Ciclo Exterior $i$) | Columna (Ciclo Interior $j$) | Condición Interior ($j \le \text{límite}$) | Impresión / Salida en pantalla | Explicación de interacción |
+| :--- | :---: | :---: | :---: | :--- | :--- |
+| **Triángulo 1**<br>*(Asteriscos creciente)* | $i = 1$ | $j = 1$ | $1 \le 1$ (Verdadero) | `*` | El ciclo interior imprime 1 asterisco para la fila 1. |
+| | $i = 2$ | $j = 1, 2$ | $1 \le 2, 2 \le 2$ (Verdadero) | `**` | El ciclo interior ejecuta 2 iteraciones para la fila 2. |
+| | $i = 3$ | $j = 1, 2, 3$ | $1 \le 3, 2 \le 3, 3 \le 3$ | `***` | El ciclo interior ejecuta 3 iteraciones para la fila 3. |
+| **Triángulo 2**<br>*(Asteriscos decreciente)* | $i = 3$ | $j = 1, 2, 3$ | $1 \le 3, 2 \le 3, 3 \le 3$ | `***` | El ciclo interior inicia con $N=3$ asteriscos. |
+| | $i = 2$ | $j = 1, 2$ | $1 \le 2, 2 \le 2$ (Verdadero) | `**` | El ciclo exterior decrementa a 2; el interior imprime 2 asteriscos. |
+| | $i = 1$ | $j = 1$ | $1 \le 1$ (Verdadero) | `*` | El ciclo exterior finaliza en 1; el interior imprime 1 asterisco. |
+| **Triángulo 3**<br>*(Números creciente)* | $i = 1$ | $j = 1$ | $1 \le 1$ (Verdadero) | `1` | Imprime el valor de $j$ ($1$). |
+| | $i = 2$ | $j = 1, 2$ | $1 \le 2, 2 \le 2$ (Verdadero) | `12` | Imprime de forma secuencial $j=1$ y luego $j=2$. |
+| | $i = 3$ | $j = 1, 2, 3$ | $1 \le 3, 2 \le 3, 3 \le 3$ | `123` | Imprime la secuencia de $j$ de 1 a 3. |
+
+##### Casos de validación
+
+| Caso | Entrada | Resultado esperado |
+| :--- | :--- | :--- |
+| **Menor al rango** | $N = 1$ | Muestra error de rango y solicita ingresar $N$ nuevamente. |
+| **Mayor al rango** | $N = 11$ | Muestra error de rango y solicita ingresar $N$ nuevamente. |
+| **Negativo / Cero** | $N = 0$ o $N = -4$ | Muestra error de rango y solicita ingresar $N$ nuevamente. |
+| **Límite inferior válido** | $N = 2$ | Genera los 3 patrones de 2 filas cada uno. |
+| **Límite superior válido** | $N = 10$ | Genera los 3 patrones de 10 filas cada uno. |
+| **Valor intermedio** | $N = 5$ | Genera los patrones de 5 filas mostrados en la guía. |
+
+---
+#### Capturas y evidencias
+<img width="1503" height="708" alt="image" src="https://github.com/user-attachments/assets/c9f84752-2779-41ab-ab04-75370e5f3e1b" />
+
+---
+#### Conclusiones
+
+1. **Uso de ciclos anidados para patrones bidimensionales:** 
+   La combinación de un ciclo exterior (que gestiona las filas) y un ciclo interior (que gestiona las columnas) es la técnica fundamental para la construcción de patrones geométricos y tabulares en programación estructurada.
+
+2. **Control dinámico de iteraciones del ciclo interior:** 
+   Al hacer que el límite del ciclo interior dependa del contador del ciclo exterior ($j \le i$), se logra que la cantidad de elementos impresos por fila sea variable y proporcional a la fila actual, permitiendo la generación de triángulos crecientes y decrecientes.
+
+3. **Validación estricta de rangos cerrados:** 
+   El uso del ciclo `while` para restringir la entrada a la condición $N \ge 2 \land N \le 10$ garantiza que los patrones visuales tengan dimensiones legibles y coherentes, evitando impresiones vacías ($N < 1$) o salidas excesivamente extensas en la consola.
