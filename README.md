@@ -118,3 +118,27 @@ Algoritmo ControlCalificaciones
         FinSi
     FinPara
 FinAlgoritmo
+```
+---
+
+#### Casos de prueba
+
+##### Prueba de escritorio — Ejercicio 1 (caso límite: notas 0, 7 y 10)
+
+| Paso | Iteración (i) | N | Entrada (nota) | Validación | suma | aprobados | reprobados | notaMax | notaMin | promedio |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Inicio** | - | 3 | - | Válido (3 > 0) | 0.0 | 0 | 0 | - | - | - |
+| **Iteración 1** | 1 | 3 | 0.0 | Válida (0 entre 0 y 10) | 0.0 | 0 | 1 | 0.0 | 0.0 | - |
+| **Iteración 2** | 2 | 3 | 7.0 | Válida (7 entre 0 y 10) | 7.0 | 1 | 1 | 7.0 | 0.0 | - |
+| **Iteración 3** | 3 | 3 | 10.0 | Válida (10 entre 0 y 10) | 17.0 | 2 | 1 | 10.0 | 0.0 | - |
+| **Fin del ciclo** | - | 3 | - | - | 17.0 | 2 | 1 | 10.0 | 0.0 | 5.67 |
+
+##### Casos de validación
+
+| Caso | Entrada | Resultado esperado |
+| :--- | :--- | :--- |
+| **N no válido** | `n = 0` o `n = -2` | Muestra `"El numero de estudiantes debe ser mayor que cero."` y vuelve a solicitar `n`. |
+| **Nota menor al rango** | `nota = -1` | Muestra `"Nota incorrecta. Debe estar entre 0 y 10."` y vuelve a solicitar la nota. |
+| **Nota mayor al rango** | `nota = 11` | Muestra `"Nota incorrecta. Debe estar entre 0 y 10."` y vuelve a solicitar la nota. |
+| **Nota límite de aprobación** | `nota = 7.0` | Se contabiliza como **aprobado** (`aprobados++`). |
+| **Un solo estudiante** | `n = 1`, `nota = 8.0` | Suma: 8.0, Promedio: 8.00, Aprobados: 1, Reprobados: 0, Nota más alta y más baja: 8.0. |
