@@ -166,4 +166,165 @@ FinAlgoritmo
 3. **Determinación adecuada de valores extremos:** 
    La lógica aplicada en la primera iteración (`i == 1`) para inicializar las variables `notaMax` y `notaMin` garantizó que las comparaciones subsecuentes fueran precisas, evitando fallas comunes asociadas a la inicialización arbitraria de valores con cero o números fuera de contexto.
 
+---
 
+### Ejercicio 2. Tabla de multiplicar configurable
+
+Desarrolle un programa que solicite dos números: **tabla inicial** y **tabla final**. El programa deberá generar las tablas de multiplicar de cada número comprendido entre la tabla inicial y la tabla final (ambas incluidas). El programa debe validar que la tabla inicial no sea mayor que la tabla final.
+
+**Desafío:** permitir que el usuario determine también hasta qué multiplicador desea generar las tablas.
+
+Ejemplo:
+
+```text
+Tabla inicial: 3
+Tabla final: 5
+
+TABLA DEL 3
+3 x 1 = 3
+...
+3 x 10 = 30
+
+TABLA DEL 4
+...
+
+TABLA DEL 5
+...
+```
+
+#### Estructuras utilizadas
+
+| Estructura | Uso en el Ejercicio 2 |
+| :--- | :--- |
+| `while` | Validar que la tabla inicial no sea mayor que la tabla final y que el multiplicador final sea mayor que 0 (se repite hasta recibir datos válidos). |
+| `for` externo | Recorrer cada tabla desde la tabla inicial hasta la tabla final. |
+| `for` interno | Recorrer los multiplicadores desde 1 hasta el multiplicador final para cada tabla. |
+| Variable de cálculo | `resultado` guarda el producto de `tabla * multiplicador` en cada iteración. |
+
+> **Estructura obligatoria:** ciclos `for` anidados.
+
+> **Caso límite obligatorio:** probar tabla inicial igual a tabla final y multiplicador final igual a 1.
+
+#### Análisis
+
+##### Entradas
+- Tabla inicial `tablaInicial`.
+- Tabla final `tablaFinal` (debe cumplir `tablaInicial <= tablaFinal`).
+- Multiplicador final `multFinal` (debe cumplir `multFinal > 0`).
+
+##### Restricciones y validaciones
+- Uso de la estructura `while` para validar que `tablaInicial <= tablaFinal`.
+- Uso de la estructura `while` para validar que `multFinal > 0`.
+
+##### Procesos
+- Recorrer con un `for` externo cada tabla desde `tablaInicial` hasta `tablaFinal`.
+- Mostrar el encabezado `TABLA DEL n` al iniciar cada tabla.
+- Recorrer con un `for` interno los multiplicadores desde 1 hasta `multFinal`.
+- Calcular `resultado = tabla * multiplicador` y mostrar la operación en cada iteración.
+
+##### Salidas
+- Encabezado de cada tabla (`TABLA DEL n`).
+- Cada operación con el formato `tabla x multiplicador = resultado`.
+- Mensajes de error cuando los datos ingresados no son válidos.
+
+#### Diagrama de flujo
+<img width="" height="" alt="image" src="" />
+
+
+#### Pseudocódigo
+
+```text
+Algoritmo TablaMultiplicarConfigurable
+    Definir tablaInicial, tablaFinal, multFinal Como Entero
+    Definir tabla, m, resultado Como Entero
+
+    // Validacion de tabla inicial y tabla final
+    Escribir "Ingrese la tabla inicial: "
+    Leer tablaInicial
+    Escribir "Ingrese la tabla final: "
+    Leer tablaFinal
+
+    Mientras tablaInicial > tablaFinal Hacer
+        Escribir "La tabla inicial no puede ser mayor que la tabla final"
+        Escribir "Ingrese la tabla inicial: "
+        Leer tablaInicial
+        Escribir "Ingrese la tabla final: "
+        Leer tablaFinal
+    FinMientras
+
+    // Desafio: multiplicador final configurable
+    Escribir "Ingrese hasta que multiplicador desea generar: "
+    Leer multFinal
+
+    Mientras multFinal <= 0 Hacer
+        Escribir "El multiplicador final debe ser mayor que cero"
+        Escribir "Ingrese hasta que multiplicador desea generar: "
+        Leer multFinal
+    FinMientras
+
+    // Procesamiento con Para (for) anidados
+    Para tabla <- tablaInicial Hasta tablaFinal Con Paso 1 Hacer
+        Escribir "TABLA DEL ", tabla
+
+        Para m <- 1 Hasta multFinal Con Paso 1 Hacer
+            resultado <- tabla * m
+            Escribir tabla, " x ", m, " = ", resultado
+        FinPara
+
+        Escribir ""
+    FinPara
+FinAlgoritmo
+```
+
+---
+
+#### Casos de prueba
+
+##### Prueba de escritorio — Ejercicio 2 (tabla inicial = 3, tabla final = 5, multiplicador final = 3)
+
+| Paso | tabla (for externo) | m (for interno) | resultado | Salida en pantalla |
+| :--- | :---: | :---: | :---: | :--- |
+| **Inicio** | - | - | - | Válido (3 <= 5) y válido (3 > 0) |
+| **Iteración 1** | 3 | 1 | 3 | TABLA DEL 3 / 3 x 1 = 3 |
+| **Iteración 2** | 3 | 2 | 6 | 3 x 2 = 6 |
+| **Iteración 3** | 3 | 3 | 9 | 3 x 3 = 9 |
+| **Iteración 4** | 4 | 1 | 4 | TABLA DEL 4 / 4 x 1 = 4 |
+| **Iteración 5** | 4 | 2 | 8 | 4 x 2 = 8 |
+| **Iteración 6** | 4 | 3 | 12 | 4 x 3 = 12 |
+| **Iteración 7** | 5 | 1 | 5 | TABLA DEL 5 / 5 x 1 = 5 |
+| **Iteración 8** | 5 | 2 | 10 | 5 x 2 = 10 |
+| **Iteración 9** | 5 | 3 | 15 | 5 x 3 = 15 |
+| **Fin del ciclo** | - | - | - | Se generaron 3 tablas con 3 multiplicadores cada una |
+
+##### Casos de validación
+
+| Caso | Entrada | Resultado esperado |
+| :--- | :--- | :--- |
+| **Tabla inicial mayor que la final** | `tablaInicial = 5`, `tablaFinal = 3` | Muestra `"La tabla inicial no puede ser mayor que la tabla final"` y vuelve a solicitar ambos datos. |
+| **Tabla inicial igual a la final** | `tablaInicial = 4`, `tablaFinal = 4` | Es válido; genera únicamente la TABLA DEL 4. |
+| **Multiplicador final igual a cero** | `multFinal = 0` | Muestra `"El multiplicador final debe ser mayor que cero"` y vuelve a solicitar el dato. |
+| **Multiplicador final negativo** | `multFinal = -3` | Muestra `"El multiplicador final debe ser mayor que cero"` y vuelve a solicitar el dato. |
+| **Multiplicador mínimo** | `multFinal = 1` | Cada tabla muestra solo la operación `n x 1 = n`. |
+| **Ejemplo del enunciado** | `tablaInicial = 3`, `tablaFinal = 5`, `multFinal = 10` | Genera TABLA DEL 3 (hasta `3 x 10 = 30`), TABLA DEL 4 y TABLA DEL 5. |
+
+---
+---
+
+#### Capturas y evidencias
+
+##### Ejecución del programa
+
+<img width="" height="" alt="Captura de ejecución Ejercicio 2" src="" />
+
+---
+
+#### Conclusiones
+
+1. **Validación de entradas con ciclos `while`:**
+   La implementación de los ciclos `while` permitió asegurar que la tabla inicial no fuera mayor que la tabla final y que el multiplicador final fuera un valor positivo. Esto evita salidas vacías o resultados incorrectos.
+
+2. **Uso de ciclos `for` anidados:**
+   El `for` externo permitió recorrer cada tabla del rango indicado y el `for` interno generó los multiplicadores de cada una. Esta estructura evita repetir instrucciones y facilita cambiar el rango sin modificar el código.
+
+3. **Flexibilidad mediante el desafío del multiplicador:**
+   Permitir que el usuario elija hasta qué multiplicador generar las tablas volvió el programa configurable, ya que el límite dejó de ser un valor fijo (10) y pasó a depender de una variable ingresada.
