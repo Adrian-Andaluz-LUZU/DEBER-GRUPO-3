@@ -330,3 +330,135 @@ FinAlgoritmo
 
 3. **Flexibilidad mediante el desafío del multiplicador:**
    Permitir que el usuario elija hasta qué multiplicador generar las tablas volvió el programa configurable, ya que el límite dejó de ser un valor fijo (10) y pasó a depender de una variable ingresada.
+---
+### Ejercicio 3: Serie y suma de números pares
+
+#### Descripción del Ejercicio
+El programa solicita un número entero positivo $N$. A partir de este límite superior, el sistema genera y muestra en pantalla la serie de todos los números pares comprendidos desde 2 hasta $N$. Además, realiza el cálculo y muestra de:
+- La cantidad total de números pares generados.
+- La suma acumulada de dichos números pares.
+- El promedio general de los números pares obtenidos.
+
+**Requerimientos del ejercicio:**
+- Uso de validación para garantizar que $N$ sea positivo ($N > 0$).
+- Implementación de contador, acumulador y estructura repetitiva `for` (o `Para`).
+- Manejo de casos límite: $N = 1$, $N = 2$ y valores negativos.
+
+---
+
+#### Análisis del Problema
+- **Entrada:** Un número entero $N$.
+- **Proceso:**
+  1. Validar que $N > 0$ mediante un ciclo `while`. Si es menor o igual a cero, solicitar nuevamente el ingreso.
+  2. Inicializar el contador de pares en 0 y el acumulador de la suma en 0.
+  3. Recorrer desde $i = 2$ hasta $N$ aumentando de 2 en 2 (o de 1 en 1 verificando $i \% 2 == 0$).
+  4. En cada iteración con número par, imprimir el número, incrementar el contador y sumar el número al acumulador.
+  5. Calcular el promedio: $\text{promedio} = \frac{\text{suma}}{\text{cantidad de pares}}$. Si no existen pares (ej. cuando $N = 1$), el promedio se maneja en 0.
+- **Salida:** Serie de pares, cantidad de pares, suma total y promedio.
+
+---
+
+#### Estructuras utilizadas
+
+| Estructura | Uso en el Ejercicio |
+| :--- | :--- |
+| `while` | Validar que el límite superior sea un entero positivo ($N > 0$). |
+| `for` | Recorrer los valores desde 2 hasta $N$ para identificar y procesar los números pares. |
+| `if / else` | Verificar la paridad del número ($i \pmod 2 == 0$) y prevenir la división para el cálculo del promedio si la cantidad de pares es 0. |
+| Acumulador | `suma` suma de manera sucesiva el valor de cada número par encontrado. |
+| Contadores | `cantidadPares` contabiliza el total de números pares generados dentro del rango $[2, N]$. |
+
+---
+
+#### Diagrama de Flujo
+
+<img width="4152" height="6336" alt="image" src="https://github.com/user-attachments/assets/0b6649d8-d2b8-47c5-86e7-9fc2ca4717e0" />
+
+---
+
+#### Pseudocódigo
+
+```text
+Algoritmo SerieYSumaNumerosPares
+    Definir N, i, cantidadPares, suma Como Entero
+    Definir promedio Como Real
+
+    // Inicialización de variables
+    suma <- 0
+    cantidadPares <- 0
+
+    // Validación del número N
+    Escribir "Ingrese N: "
+    Leer N
+
+    Mientras N <= 0 Hacer
+        Escribir "El numero debe ser entero positivo (mayor a cero)."
+        Escribir "Ingrese nuevamente N: "
+        Leer N
+    FinMientras
+
+    Escribir "Serie:"
+    // Generación de la serie de pares con ciclo Para
+    Para i <- 2 Hasta N Con Paso 2 Hacer
+        Escribir i, " " Sin Bajar
+        suma <- suma + i
+        cantidadPares <- cantidadPares + 1
+    FinPara
+    Escribir "" // Salto de línea
+
+    Escribir "Cantidad de pares: ", cantidadPares
+    Escribir "Suma: ", suma
+
+    // Cálculo del promedio
+    Si cantidadPares > 0 Entonces
+        promedio <- suma / cantidadPares
+        Escribir "Promedio: ", promedio
+    SiNo
+        Escribir "Promedio: 0 (No se generaron numeros pares)"
+    FinSi
+FinAlgoritmo
+```
+---
+
+#### Casos de prueba
+
+##### Prueba de escritorio — Ejercicio 3 (Ejemplo $N = 12$)
+
+| Paso | N | Iteración (i) | ¿$i \le N$? | Serie impresa | suma | cantidadPares | promedio |
+| :--- | :---: | :---: | :---: | :--- | :---: | :---: | :---: |
+| **Inicio** | 12 | - | - | - | 0 | 0 | - |
+| **Iteración 1** | 12 | 2 | Válido (2 ≤ 12) | 2 | 2 | 1 | - |
+| **Iteración 2** | 12 | 4 | Válido (4 ≤ 12) | 2 4 | 6 | 2 | - |
+| **Iteración 3** | 12 | 6 | Válido (6 ≤ 12) | 2 4 6 | 12 | 3 | - |
+| **Iteración 4** | 12 | 8 | Válido (8 ≤ 12) | 2 4 6 8 | 20 | 4 | - |
+| **Iteración 5** | 12 | 10 | Válido (10 ≤ 12) | 2 4 6 8 10 | 30 | 5 | - |
+| **Iteración 6** | 12 | 12 | Válido (12 ≤ 12) | 2 4 6 8 10 12 | 42 | 6 | - |
+| **Fin del ciclo**| 12 | 14 | Falso (14 > 12) | - | 42 | 6 | 7.00 |
+
+##### Casos de validación
+
+| Caso | Entrada | Resultado esperado |
+| :--- | :--- | :--- |
+| **Negativos / Cero** | `N = -5` o `N = 0` | Muestra `"El numero debe ser entero positivo"` y vuelve a pedir $N$. |
+| **Caso límite $N = 1$** | `N = 1` | Serie: *(vacía)*, Cantidad de pares: `0`, Suma: `0`, Promedio: `0`. |
+| **Caso límite $N = 2$** | `N = 2` | Serie: `2`, Cantidad de pares: `1`, Suma: `2`, Promedio: `2.00`. |
+| **Entrada normal par** | `N = 12` | Serie: `2 4 6 8 10 12`, Cantidad: `6`, Suma: `42`, Promedio: `7.00`. |
+| **Entrada normal impar** | `N = 7` | Serie: `2 4 6`, Cantidad: `3`, Suma: `12`, Promedio: `4.00`. |
+
+---
+#### Capturas y evidencias
+
+##### Ejecución del programa
+<img width="908" height="530" alt="image" src="https://github.com/user-attachments/assets/6429b41f-dd64-48bb-bada-edebf42706c8" />
+
+
+#### Conclusiones
+
+1. **Control de rangos mediante validación:** 
+   La aplicación del ciclo `while` para la lectura de $N$ previene la ejecución de algoritmos con valores inválidos o negativos, garantizando que el bucle principal de cálculo opere exclusivamente sobre el dominio de números enteros positivos.
+
+2. **Optimización del ciclo de conteo:** 
+   Al definir el paso del ciclo `for` de 2 en 2 iniciado en 2 (`Para i <- 2 Hasta N Con Paso 2`), se optimiza el rendimiento del algoritmo reduciendo las iteraciones a la mitad en comparación con la revisión individual de paridad término a término.
+
+3. **Manejo correcto de casos extremos ($N = 1$):** 
+   El análisis condicional antes del cálculo del promedio evita posibles indeterminaciones o errores de división por cero ($\frac{0}{0}$) cuando el rango $2 \le N$ no contiene ningún número par.
