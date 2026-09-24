@@ -228,7 +228,8 @@ TABLA DEL 5
 - Mensajes de error cuando los datos ingresados no son válidos.
 
 #### Diagrama de flujo
-<img width="" height="" alt="image" src="" />
+<img width="4940" height="8080" alt="image" src="https://github.com/user-attachments/assets/844fad8d-fc59-4c26-8654-a3c4afd004f5" />
+
 
 
 #### Pseudocódigo
