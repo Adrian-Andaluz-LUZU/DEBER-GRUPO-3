@@ -62,8 +62,8 @@ El programa deberá determinar:
 - Nota más alta y nota más baja.
 
 #### Diagrama de flujo
-*(Sube tu imagen del diagrama a la carpeta Ejercicio01 o arrástrala aquí)*
-![Diagrama de Flujo](./Ejercicio01/diagrama_ejercicio1.png)
+<img width="4108" height="10600" alt="image" src="https://github.com/user-attachments/assets/c72af746-7cd5-40c8-a80b-e81b28d12c14" />
+
 
 #### Pseudocódigo
 
