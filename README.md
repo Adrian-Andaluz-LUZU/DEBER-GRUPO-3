@@ -1649,10 +1649,9 @@ Algoritmo Estadisticas_Encuesta_Universitaria
 			Escribir ""
 		FinSi
 	FinPara
-FinAlgoritmo
+FinAlgoritmo```
 
 ---
-
 ## 6. Pruebas de Escritorio (Tabla de Traza Completa para N = 3)
 
 ### Datos de Entrada para la Prueba:
@@ -1664,212 +1663,40 @@ FinAlgoritmo
 
 ### Tabla 1: Registro de Estudiantes y Acumuladores
 
-<table>
-  <thead>
-    <tr>
-      <th>Estudiante</th>
-      <th>Edad</th>
-      <th>Semestre</th>
-      <th>Horas</th>
-      <th>sumaEdades</th>
-      <th>sumaHoras</th>
-      <th>maxHoras</th>
-      <th>estMax</th>
-      <th>menos2h</th>
-      <th>Registro Semestres</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><b>Inicio</b></td>
-      <td>--</td>
-      <td>--</td>
-      <td>--</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>-1.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>Todos en 0</td>
-    </tr>
-    <tr>
-      <td><b>i = 1</b></td>
-      <td>19</td>
-      <td>1</td>
-      <td>1.5</td>
-      <td>19</td>
-      <td>1.5</td>
-      <td>1.5</td>
-      <td>1</td>
-      <td>1</td>
-      <td>c1 = 1</td>
-    </tr>
-    <tr>
-      <td><b>i = 2</b></td>
-      <td>21</td>
-      <td>3</td>
-      <td>5.0</td>
-      <td>40</td>
-      <td>6.5</td>
-      <td>5.0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>c3 = 1</td>
-    </tr>
-    <tr>
-      <td><b>i = 3</b></td>
-      <td>20</td>
-      <td>1</td>
-      <td>0.5</td>
-      <td>60</td>
-      <td>7.0</td>
-      <td>5.0</td>
-      <td>2</td>
-      <td>2</td>
-      <td>c1 = 2</td>
-    </tr>
-  </tbody>
-</table>
+| Estudiante | Edad | Semestre | Horas | sumaEdades | sumaHoras | maxHoras | estMax | menos2h | Registro Semestres |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Inicio** | -- | -- | -- | 0 | 0.0 | -1.0 | 0 | 0 | Todos en 0 |
+| **i = 1** | 19 | 1 | 1.5 | 19 | 1.5 | 1.5 | 1 | 1 | c1 = 1 |
+| **i = 2** | 21 | 3 | 5.0 | 40 | 6.5 | 5.0 | 2 | 1 | c3 = 1 |
+| **i = 3** | 20 | 1 | 0.5 | 60 | 7.0 | 5.0 | 2 | 2 | c1 = 2 |
 
 ---
 
 ### Tabla 2: Traza del Ciclo Anidado (Reporte por Semestre)
 
-<table>
-  <thead>
-    <tr>
-      <th>Semestre</th>
-      <th>Condición</th>
-      <th>conteoSemestre</th>
-      <th>Evaluado</th>
-      <th>Sub-ciclo</th>
-      <th>Salida Impresa</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><b>sem = 1</b></td>
-      <td>1 &lt;= 10 (V)</td>
-      <td>2</td>
-      <td>Falso</td>
-      <td>1, 2</td>
-      <td>Semestre 1: 2 est. -&gt; **</td>
-    </tr>
-    <tr>
-      <td><b>sem = 2</b></td>
-      <td>2 &lt;= 10 (V)</td>
-      <td>0</td>
-      <td>Verdadero</td>
-      <td>--</td>
-      <td>Semestre 2: 0 est. -&gt; [Sin registros]</td>
-    </tr>
-    <tr>
-      <td><b>sem = 3</b></td>
-      <td>3 &lt;= 10 (V)</td>
-      <td>1</td>
-      <td>Falso</td>
-      <td>1</td>
-      <td>Semestre 3: 1 est. -&gt; *</td>
-    </tr>
-    <tr>
-      <td><b>sem = 4..10</b></td>
-      <td>Varios (V)</td>
-      <td>0</td>
-      <td>Verdadero</td>
-      <td>--</td>
-      <td>Semestre X: 0 est. -&gt; [Sin registros]</td>
-    </tr>
-    <tr>
-      <td><b>sem = 11</b></td>
-      <td>11 &lt;= 10 (F)</td>
-      <td>--</td>
-      <td>--</td>
-      <td>--</td>
-      <td>[Fin del Reporte]</td>
-    </tr>
-  </tbody>
-</table>
+| Semestre | Condicion | conteoSemestre | Evaluado | Sub-ciclo | Salida Impresa |
+| :---: | :---: | :---: | :---: | :---: | :--- |
+| **sem = 1** | 1 <= 10 (V) | 2 | Falso | 1, 2 | Semestre 1: 2 est. -> ** |
+| **sem = 2** | 2 <= 10 (V) | 0 | Verdadero | -- | Semestre 2: 0 est. -> [Sin registros] |
+| **sem = 3** | 3 <= 10 (V) | 1 | Falso | 1 | Semestre 3: 1 est. -> * |
+| **sem = 4..10** | Varios (V) | 0 | Verdadero | -- | Semestre X: 0 est. -> [Sin registros] |
+| **sem = 11** | 11 <= 10 (F) | -- | -- | -- | [Fin del Reporte] |
 
 ---
 
 ## 7. Casos de Validación de Entrada
 
-<table>
-  <thead>
-    <tr>
-      <th>Campo Evaluado</th>
-      <th>Valor Ingresado</th>
-      <th>Condición de Control</th>
-      <th>Resultado del Algoritmo</th>
-      <th>Estado</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><b>Edad</b></td>
-      <td><code>14</code></td>
-      <td>14 &lt; 16</td>
-      <td>Rechazado: Muestra error y pide reingreso.</td>
-      <td>Exitoso</td>
-    </tr>
-    <tr>
-      <td><b>Edad</b></td>
-      <td><code>85</code></td>
-      <td>85 &gt; 80</td>
-      <td>Rechazado: Muestra error y pide reingreso.</td>
-      <td>Exitoso</td>
-    </tr>
-    <tr>
-      <td><b>Edad</b></td>
-      <td><code>20</code></td>
-      <td>16 &lt;= 20 &lt;= 80</td>
-      <td>Aceptado correctamente.</td>
-      <td>Exitoso</td>
-    </tr>
-    <tr>
-      <td><b>Semestre</b></td>
-      <td><code>0</code></td>
-      <td>0 &lt; 1</td>
-      <td>Rechazado: Muestra error y pide reingreso.</td>
-      <td>Exitoso</td>
-    </tr>
-    <tr>
-      <td><b>Semestre</b></td>
-      <td><code>12</code></td>
-      <td>12 &gt; 10</td>
-      <td>Rechazado: Muestra error y pide reingreso.</td>
-      <td>Exitoso</td>
-    </tr>
-    <tr>
-      <td><b>Semestre</b></td>
-      <td><code>5</code></td>
-      <td>1 &lt;= 5 &lt;= 10</td>
-      <td>Aceptado correctamente.</td>
-      <td>Exitoso</td>
-    </tr>
-    <tr>
-      <td><b>Horas de Estudio</b></td>
-      <td><code>-3</code></td>
-      <td>-3 &lt; 0</td>
-      <td>Rechazado: Muestra error y pide reingreso.</td>
-      <td>Exitoso</td>
-    </tr>
-    <tr>
-      <td><b>Horas de Estudio</b></td>
-      <td><code>26</code></td>
-      <td>26 &gt; 24</td>
-      <td>Rechazado: Muestra error y pide reingreso.</td>
-      <td>Exitoso</td>
-    </tr>
-    <tr>
-      <td><b>Horas de Estudio</b></td>
-      <td><code>4.5</code></td>
-      <td>0 &lt;= 4.5 &lt;= 24</td>
-      <td>Aceptado correctamente.</td>
-      <td>Exitoso</td>
-    </tr>
-  </tbody>
-</table>
+| Campo Evaluado | Valor Ingresado | Condicion de Control | Resultado del Algoritmo | Estado |
+| :--- | :--- | :--- | :--- | :--- |
+| **Edad** | `14` | 14 < 16 | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Edad** | `85` | 85 > 80 | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Edad** | `20` | 16 <= 20 <= 80 | Aceptado correctamente. | Exitoso |
+| **Semestre** | `0` | 0 < 1 | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Semestre** | `12` | 12 > 10 | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Semestre** | `5` | 1 <= 5 <= 10 | Aceptado correctamente. | Exitoso |
+| **Horas de Estudio** | `-3` | -3 < 0 | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Horas de Estudio** | `26` | 26 > 24 | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Horas de Estudio** | `4.5` | 0 <= 4.5 <= 24 | Aceptado correctamente. | Exitoso |
 
 ------
 
