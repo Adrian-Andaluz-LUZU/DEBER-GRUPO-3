@@ -1650,6 +1650,7 @@ Algoritmo Estadisticas_Encuesta_Universitaria
 		FinSi
 	FinPara
 FinAlgoritmo
+´´´
 ---
 
 ## 6. Pruebas de Escritorio (Tabla de Traza Completa para N = 3)
@@ -1658,6 +1659,7 @@ FinAlgoritmo
 * **Estudiante 1:** Edad = `19`, Semestre = `1`, Horas = `1.5`
 * **Estudiante 2:** Edad = `21`, Semestre = `3`, Horas = `5.0`
 * **Estudiante 3:** Edad = `20`, Semestre = `1`, Horas = `0.5`
+
 ---
 
 ### Tabla 1: Registro de Estudiantes y Acumuladores
@@ -1694,12 +1696,12 @@ FinAlgoritmo
 | **Horas de Estudio** | `-3` | -3 < 0 | Rechazado: Muestra error y pide reingreso. | Exitoso |
 | **Horas de Estudio** | `26` | 26 > 24 | Rechazado: Muestra error y pide reingreso. | Exitoso |
 | **Horas de Estudio** | `4.5` | 0 <= 4.5 <= 24 | Aceptado correctamente. | Exitoso |
+
 ---
 
 ## 8. Capturas y Evidencias de Ejecución
 
 <img width="1372" height="887" alt="image" src="https://github.com/user-attachments/assets/b81bb35c-b8bf-426a-87f4-e8b13241c69d" />
-
 
 ---
 
@@ -1707,3 +1709,5 @@ FinAlgoritmo
 * La implementación del ciclo `Repetir - Hasta Que` en cada parámetro asegura la integridad de los datos filtrando entradas fuera de rango.
 * La simulación del histograma mediante ciclos anidados permite representar frecuencias por semestre sin usar arreglos dinámicos.
 * La captura del máximo en tiempo de ejecución (`horasEstudio > maxHoras`) garantiza una complejidad de espacio $O(1)$.
+
+---
