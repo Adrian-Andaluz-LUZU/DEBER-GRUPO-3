@@ -1463,3 +1463,251 @@ La solución consiste en modificar correctamente la variable de control mediante
 
 Este ejercicio permite comprender la importancia de las variables de control en los ciclos `while` y la utilidad de las tablas de trazas para detectar errores de programación.
 
+---
+# Ejercicio 9: Estadísticas de una Encuesta Universitaria
+
+## 1. Descripción del Ejercicio
+El programa realiza un procesamiento de datos estadísticos recopilados a partir de una encuesta a $N$ estudiantes universitarios. Inicialmente solicita la cantidad total de participantes y por cada uno procesa tres datos clave con sus respectivas validaciones:
+
+* **Edad:** Rango estricto de $16$ a $80$ años.
+* **Semestre:** Rango estricto de $1$ a $10$.
+* **Horas de Estudio por Día:** Rango estricto de $0$ a $24$ horas.
+
+A partir de la información recopilada, el algoritmo calcula y determina:
+1. **Edad promedio** del grupo encuestado.
+2. **Horas promedio de estudio diario**.
+3. **Estudiante con mayor cantidad de horas de estudio** (número de estudiante y cantidad de horas).
+4. **Cantidad total de estudiantes que estudian menos de 2 horas al día**.
+5. **Cantidad de estudiantes pertenecientes a cada semestre (del 1 al 10)** mediante el uso de **ciclos anidados**.
+
+---
+
+## 2. Tabla de Estructuras Utilizadas
+
+| Variable / Control | Tipo de Dato | Función en el Algoritmo |
+| :--- | :--- | :--- |
+| `numEstudiantes` | Entero | Cantidad total de encuestados ($> 0$). |
+| `i`, `sem` | Entero | Variables de control para los ciclos. |
+| `edad`, `semestre` | Entero | Datos individuales ingresados por estudiante. |
+| `horasEstudio` | Real / Entero | Horas diarias dedicadas al estudio por estudiante. |
+| `sumaEdades`, `sumaHoras` | Real | Acumuladores para el cálculo de promedios. |
+| `maxHoras` | Real | Registro de la mayor cantidad de horas ingresadas. |
+| `estudianteMaxHoras` | Entero | Identificador (índice) del estudiante con mayor dedicación. |
+| `menosDe2Horas` | Entero | Contador de alumnos con menos de 2 horas de estudio. |
+| `conteoSemestre` | Entero | Contador temporal utilizado en el ciclo anidado por semestre. |
+| `Repetir - Hasta Que` | Repetitiva | Estructura para la validación de entrada de cada variable. |
+| `Para` Anidado | Repetitiva | Ciclo principal de lectura y ciclo anidado para contabilizar estudiantes por semestre. |
+
+---
+
+## 3. Análisis del Problema
+* **Entrada:** `numEstudiantes`, y por cada alumno: `edad`, `semestre`, `horasEstudio`.
+* **Restricciones de Ingreso:**
+  * $numEstudiantes \ge 1$
+  * $16 \le edad \le 80$
+  * $1 \le semestre \le 10$
+  * $0 \le horasEstudio \le 24$
+* **Proceso Especial (Conteo por Semestre mediante Ciclos Anidados):**
+  * Para determinar cuántos alumnos pertenecen a cada uno de los 10 semestres sin usar arreglos/vectores, se utiliza un ciclo externo `sem` de 1 a 10 y una evaluación iterativa anidada para graficar e imprimir la frecuencia de cada nivel.
+
+---
+
+## 4. Diagrama de Flujo
+
+<img width="142" height="1742" alt="encuestaUniversitaria drawio" src="https://github.com/user-attachments/assets/aacd0acf-684a-412b-84e5-2b8abf35f729" />
+
+---
+
+## 5. Pseudocódigo (PSeInt)
+
+```pseint
+Algoritmo Estadisticas_Encuesta_Universitaria
+	Definir numEstudiantes, i, sem Como Entero
+	Definir edad, semestre Como Entero
+	Definir horasEstudio, sumaEdades, sumaHoras Como Real
+	Definir maxHoras Como Real
+	Definir estudianteMaxHoras, menosDe2Horas Como Entero
+	
+	// Variables para conteo acumulado de cada semestre (1 al 10)
+	Definir c1, c2, c3, c4, c5, c6, c7, c8, c9, c10 Como Entero
+	c1 <- 0; c2 <- 0; c3 <- 0; c4 <- 0; c5 <- 0
+	c6 <- 0; c7 <- 0; c8 <- 0; c9 <- 0; c10 <- 0
+	
+	// Validacion de cantidad de estudiantes
+	Repetir
+		Escribir "Ingrese la cantidad de estudiantes a encuestar (minimo 1): "
+		Leer numEstudiantes
+	Hasta Que numEstudiantes >= 1
+	
+	sumaEdades <- 0
+	sumaHoras <- 0
+	maxHoras <- -1
+	estudianteMaxHoras <- 0
+	menosDe2Horas <- 0
+	
+	// Ciclo Principal de Registro de Datos
+	Para i <- 1 Hasta numEstudiantes Con Paso 1 Hacer
+		Escribir ""
+		Escribir "=== DATOS DEL ESTUDIANTE ", i, " ==="
+		
+		// Validacion de Edad (16 - 80)
+		Repetir
+			Escribir "Ingrese Edad (16 a 80): "
+			Leer edad
+			Si edad < 16 O edad > 80 Entonces
+				Escribir "[ERROR] Edad fuera del rango permitido (16-80)."
+			FinSi
+		Hasta Que edad >= 16 Y edad <= 80
+		
+		// Validacion de Semestre (1 - 10)
+		Repetir
+			Escribir "Ingrese Semestre (1 a 10): "
+			Leer semestre
+			Si semestre < 1 O semestre > 10 Entonces
+				Escribir "[ERROR] Semestre fuera del rango permitido (1-10)."
+			FinSi
+		Hasta Que semestre >= 1 Y semestre <= 10
+		
+		// Validacion de Horas de Estudio (0 - 24)
+		Repetir
+			Escribir "Ingrese Horas de estudio diarias (0 a 24): "
+			Leer horasEstudio
+			Si horasEstudio < 0 O horasEstudio > 24 Entonces
+				Escribir "[ERROR] Horas fuera del rango permitido (0-24)."
+			FinSi
+		Hasta Que horasEstudio >= 0 Y horasEstudio <= 24
+		
+		// Acumuladores
+		sumaEdades <- sumaEdades + edad
+		sumaHoras <- sumaHoras + horasEstudio
+		
+		// Evaluacion de Estudiante con mayor horas de estudio
+		Si horasEstudio > maxHoras Entonces
+			maxHoras <- horasEstudio
+			estudianteMaxHoras <- i
+		FinSi
+		
+		// Evaluacion de Estudiantes que estudian menos de 2 horas
+		Si horasEstudio < 2 Entonces
+			menosDe2Horas <- menosDe2Horas + 1
+		FinSi
+		
+		// Registro para el conteo por semestre
+		Segun semestre Hacer
+			1: c1 <- c1 + 1
+			2: c2 <- c2 + 1
+			3: c3 <- c3 + 1
+			4: c4 <- c4 + 1
+			5: c5 <- c5 + 1
+			6: c6 <- c6 + 1
+			7: c7 <- c7 + 1
+			8: c8 <- c8 + 1
+			9: c9 <- c9 + 1
+			10: c10 <- c10 + 1
+		FinSegun
+	FinPara
+	
+	// Impresion de Resultados Generales
+	Escribir ""
+	Escribir "=================================================="
+	Escribir "       RESULTADOS ESTADISTICOS DE LA ENCUESTA     "
+	Escribir "=================================================="
+	Escribir "1. Edad Promedio: ", (sumaEdades / numEstudiantes), " anos."
+	Escribir "2. Horas Promedio de Estudio: ", (sumaHoras / numEstudiantes), " horas/dia."
+	Escribir "3. Mayor dedicacion: Estudiante #", estudianteMaxHoras, " con ", maxHoras, " horas."
+	Escribir "4. Estudiantes que estudian menos de 2 horas: ", menosDe2Horas
+	Escribir ""
+	Escribir "5. CANTIDAD DE ESTUDIANTES POR SEMESTRE:"
+	
+	// Uso de Ciclos Anidados para la muestra estructurada por Semestre (1 al 10)
+	Para sem <- 1 Hasta 10 Con Paso 1 Hacer
+		Escribir Sin Saltar "Semestre ", sem, ": "
+		Definir conteoSemestre Como Entero
+		conteoSemestre <- 0
+		
+		Segun sem Hacer
+			1: conteoSemestre <- c1
+			2: conteoSemestre <- c2
+			3: conteoSemestre <- c3
+			4: conteoSemestre <- c4
+			5: conteoSemestre <- c5
+			6: conteoSemestre <- c6
+			7: conteoSemestre <- c7
+			8: conteoSemestre <- c8
+			9: conteoSemestre <- c9
+			10: conteoSemestre <- c10
+		FinSegun
+		
+		Escribir conteoSemestre, " estudiante(s) -> " Sin Saltar
+		
+		Si conteoSemestre = 0 Entonces
+			Escribir "[Sin registros]"
+		Sino
+			Para i <- 1 Hasta conteoSemestre Con Paso 1 Hacer
+				Escribir Sin Saltar "*"
+			FinPara
+			Escribir ""
+		FinSi
+	FinPara
+FinAlgoritmo
+
+---
+
+## 6. Pruebas de Escritorio (Tabla de Traza Completa para N = 3)
+
+### Datos de Entrada para la Prueba:
+* **Estudiante 1:** Edad = `19`, Semestre = `1`, Horas = `1.5`
+* **Estudiante 2:** Edad = `21`, Semestre = `3`, Horas = `5.0`
+* **Estudiante 3:** Edad = `20`, Semestre = `1`, Horas = `0.5`
+
+---
+
+### Tabla 1: Traza de Registro de Estudiantes y Acumuladores
+
+| Estudiante (`i`) | Edad | Semestre | Horas | `sumaEdades` | `sumaHoras` | `maxHoras` | `estMax` | `menos2h` | Registro Semestres (`c1..c10`) |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Inicio** | - | - | - | 0 | 0.0 | -1.0 | 0 | 0 | Todos en 0 |
+| **i = 1** | 19 | 1 | 1.5 | 19 | 1.5 | 1.5 | 1 | 1 | `c1 = 1` |
+| **i = 2** | 21 | 3 | 5.0 | 40 | 6.5 | 5.0 | 2 | 1 | `c3 = 1` |
+| **i = 3** | 20 | 1 | 0.5 | 60 | 7.0 | 5.0 | 2 | 2 | `c1 = 2` |
+
+---
+
+### Tabla 2: Traza del Ciclo Anidado (Reporte por Semestre)
+
+| Semestre (`sem`) | Condición (`sem <= 10`) | `conteoSemestre` | Evaluado (`== 0`) | Sub-ciclo (`i`) | Salida Impresa |
+| :---: | :---: | :---: | :---: | :---: | :--- |
+| **sem = 1** | 1 <= 10 (V) | 2 | Falso | 1, 2 | `Semestre 1: 2 est. -> **` |
+| **sem = 2** | 2 <= 10 (V) | 0 | Verdadero | - | `Semestre 2: 0 est. -> [Sin registros]` |
+| **sem = 3** | 3 <= 10 (V) | 1 | Falso | 1 | `Semestre 3: 1 est. -> *` |
+| **sem = 4..10** | Varios (V) | 0 | Verdadero | - | `Semestre X: 0 est. -> [Sin registros]` |
+| **sem = 11** | 11 <= 10 (F) | - | - | - | **Fin del Reporte** |
+
+---
+
+## 7. Casos de Validación de Entrada
+
+| Campo Evaluado | Valor Ingresado | Condición de Control | Resultado del Algoritmo | Estado |
+| :--- | :--- | :--- | :--- | :--- |
+| **Edad** | `14` | $14 < 16$ | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Edad** | `85` | $85 > 80$ | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Edad** | `20` | $16 \le 20 \le 80$ | Aceptado correctamente. | Exitoso |
+| **Semestre** | `0` | $0 < 1$ | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Semestre** | `12` | $12 > 10$ | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Semestre** | `5` | $1 \le 5 \le 10$ | Aceptado correctamente. | Exitoso |
+| **Horas de Estudio** | `-3` | $-3 < 0$ | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Horas de Estudio** | `26` | $26 > 24$ | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Horas de Estudio** | `4.5` | $0 \le 4.5 \le 24$ | Aceptado correctamente. | Exitoso |
+
+---
+
+## 8. Capturas y Evidencias de Ejecución
+
+<img width="1372" height="887" alt="image" src="https://github.com/user-attachments/assets/3d5e54fc-650c-431b-8b9f-e27173d869a5" />
+
+---
+
+## 9. Conclusiones
+* La implementación del ciclo `Repetir - Hasta Que` en cada parámetro asegura la integridad de los datos filtrando entradas fuera de rango.
+* La simulación del histograma mediante ciclos anidados permite representar frecuencias por semestre sin usar arreglos dinámicos.
+* La captura del máximo en tiempo de ejecución (`horasEstudio > maxHoras`) garantiza una complejidad de espacio $O(1)$.
