@@ -1650,16 +1650,14 @@ Algoritmo Estadisticas_Encuesta_Universitaria
 		FinSi
 	FinPara
 FinAlgoritmo
-´´´
-
 ---
+
 ## 6. Pruebas de Escritorio (Tabla de Traza Completa para N = 3)
 
 ### Datos de Entrada para la Prueba:
 * **Estudiante 1:** Edad = `19`, Semestre = `1`, Horas = `1.5`
 * **Estudiante 2:** Edad = `21`, Semestre = `3`, Horas = `5.0`
 * **Estudiante 3:** Edad = `20`, Semestre = `1`, Horas = `0.5`
-
 ---
 
 ### Tabla 1: Registro de Estudiantes y Acumuladores
@@ -1670,7 +1668,6 @@ FinAlgoritmo
 | **i = 1** | 19 | 1 | 1.5 | 19 | 1.5 | 1.5 | 1 | 1 | c1 = 1 |
 | **i = 2** | 21 | 3 | 5.0 | 40 | 6.5 | 5.0 | 2 | 1 | c3 = 1 |
 | **i = 3** | 20 | 1 | 0.5 | 60 | 7.0 | 5.0 | 2 | 2 | c1 = 2 |
-
 ---
 
 ### Tabla 2: Traza del Ciclo Anidado (Reporte por Semestre)
@@ -1682,7 +1679,6 @@ FinAlgoritmo
 | **sem = 3** | 3 <= 10 (V) | 1 | Falso | 1 | Semestre 3: 1 est. -> * |
 | **sem = 4..10** | Varios (V) | 0 | Verdadero | -- | Semestre X: 0 est. -> [Sin registros] |
 | **sem = 11** | 11 <= 10 (F) | -- | -- | -- | [Fin del Reporte] |
-
 ---
 
 ## 7. Casos de Validación de Entrada
@@ -1698,8 +1694,7 @@ FinAlgoritmo
 | **Horas de Estudio** | `-3` | -3 < 0 | Rechazado: Muestra error y pide reingreso. | Exitoso |
 | **Horas de Estudio** | `26` | 26 > 24 | Rechazado: Muestra error y pide reingreso. | Exitoso |
 | **Horas de Estudio** | `4.5` | 0 <= 4.5 <= 24 | Aceptado correctamente. | Exitoso |
-
-------
+---
 
 ## 8. Capturas y Evidencias de Ejecución
 
