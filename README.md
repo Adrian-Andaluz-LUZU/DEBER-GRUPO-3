@@ -1649,7 +1649,8 @@ Algoritmo Estadisticas_Encuesta_Universitaria
 			Escribir ""
 		FinSi
 	FinPara
-FinAlgoritmo´´´
+FinAlgoritmo
+´´´
 
 ---
 ## 6. Pruebas de Escritorio (Tabla de Traza Completa para N = 3)
