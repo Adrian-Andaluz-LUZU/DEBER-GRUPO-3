@@ -1465,7 +1465,7 @@ Este ejercicio permite comprender la importancia de las variables de control en 
 ---
 # Ejercicio 9: Estadísticas de una Encuesta Universitaria
 
-## 1. Descripción del Ejercicio
+##  Descripción del Ejercicio
 El programa realiza un procesamiento de datos estadísticos recopilados a partir de una encuesta a $N$ estudiantes universitarios. Inicialmente solicita la cantidad total de participantes y por cada uno procesa tres datos clave con sus respectivas validaciones:
 
 * **Edad:** Rango estricto de $16$ a $80$ años.
@@ -1481,7 +1481,7 @@ A partir de la información recopilada, el algoritmo calcula y determina:
 
 ---
 
-## 2. Tabla de Estructuras Utilizadas
+##  Tabla de Estructuras Utilizadas
 
 | Variable / Control | Tipo de Dato | Función en el Algoritmo |
 | :--- | :--- | :--- |
@@ -1499,7 +1499,7 @@ A partir de la información recopilada, el algoritmo calcula y determina:
 
 ---
 
-## 3. Análisis del Problema
+##  Análisis del Problema
 * **Entrada:** `numEstudiantes`, y por cada alumno: `edad`, `semestre`, `horasEstudio`.
 * **Restricciones de Ingreso:**
   * $numEstudiantes \ge 1$
@@ -1511,13 +1511,13 @@ A partir de la información recopilada, el algoritmo calcula y determina:
 
 ---
 
-## 4. Diagrama de Flujo
+##  Diagrama de Flujo
 
 <img width="142" height="1742" alt="encuestaUniversitaria drawio" src="https://github.com/user-attachments/assets/aacd0acf-684a-412b-84e5-2b8abf35f729" />
 
 ---
 
-## 5. Pseudocódigo (PSeInt)
+##  Pseudocódigo (PSeInt)
 
 ```pseint
 Algoritmo Estadisticas_Encuesta_Universitaria
@@ -1650,7 +1650,7 @@ Algoritmo Estadisticas_Encuesta_Universitaria
 	FinPara
 FinAlgoritmo
 ```
-## 6. Pruebas de Escritorio (Tabla de Traza Completa para N = 3)
+##  Pruebas de Escritorio (Tabla de Traza Completa para N = 3)
 
 ### Datos de Entrada para la Prueba:
 * **Estudiante 1:** Edad = `19`, Semestre = `1`, Horas = `1.5`
@@ -1681,7 +1681,7 @@ FinAlgoritmo
 
 ---
 
-## 7. Casos de Validación de Entrada
+##  Casos de Validación de Entrada
 
 | Campo Evaluado | Valor Ingresado | Condicion de Control | Resultado del Algoritmo | Estado |
 | :--- | :--- | :--- | :--- | :--- |
@@ -1697,13 +1697,13 @@ FinAlgoritmo
 
 ---
 
-## 8. Capturas y Evidencias de Ejecución
+##  Capturas y Evidencias de Ejecución
 
 <img width="1372" height="887" alt="image" src="https://github.com/user-attachments/assets/b81bb35c-b8bf-426a-87f4-e8b13241c69d" />
 
 ---
 
-## 9. Conclusiones
+##  Conclusiones
 * La implementación del ciclo `Repetir - Hasta Que` en cada parámetro asegura la integridad de los datos filtrando entradas fuera de rango.
 * La simulación del histograma mediante ciclos anidados permite representar frecuencias por semestre sin usar arreglos dinámicos.
 * La captura del máximo en tiempo de ejecución (`horasEstudio > maxHoras`) garantiza una complejidad de espacio $O(1)$.
