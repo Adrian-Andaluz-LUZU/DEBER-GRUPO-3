@@ -1709,3 +1709,339 @@ FinAlgoritmo
 * La captura del máximo en tiempo de ejecución (`horasEstudio > maxHoras`) garantiza una complejidad de espacio $O(1)$.
 
 ---
+
+---
+
+### Ejercicio 10. Sistema integrador de parqueadero
+
+Construya una aplicación completa utilizando:
+
+```text
+=================================
+   PARQUEADERO UNIVERSITARIO
+=================================
+1. Registrar vehículo
+2. Mostrar vehículos registrados
+3. Mostrar estadísticas
+4. Mostrar recaudación
+5. Salir
+=================================
+```
+
+Por cada vehículo se debe registrar: tipo de vehículo, rol (estudiante, docente o visitante), número de horas, día de la semana y si perdió el boleto (sí/no). El programa aplica tarifas diferentes según estos datos.
+
+El reporte final deberá mostrar: vehículos registrados, cantidad por tipo, cantidad por rol, total de horas, promedio de permanencia, total recaudado, mayor valor pagado y menor valor pagado.
+
+**Estructuras esperadas:** `for` + `while` + `do-while` + `switch` + ciclos anidados + contadores + acumuladores + validaciones + casos límite.
+
+> **Tarifas asumidas por el equipo** (ajustar si se definió otro esquema):
+> - Automóvil: $0.75/hora — Moto: $0.40/hora — Camioneta/Bus: $1.00/hora
+> - Descuento: Estudiante 50%, Docente 30%, Visitante 0%
+> - Recargo fin de semana (sábado o domingo): +20%
+> - Boleto perdido: tarifa fija de $15
+
+#### Estructuras utilizadas
+
+| Estructura | Uso en el Ejercicio 10 |
+| :--- | :--- |
+| `do-while` | Mantener el menú activo hasta que el usuario seleccione la opción 5 (Salir). |
+| `switch` | Ejecutar la opción del menú elegida y, dentro del registro, calcular la tarifa según el tipo de vehículo y el rol. |
+| `while` | Validar cada dato ingresado (tipo, rol, horas, día, boleto perdido) hasta recibir un valor correcto. |
+| `for` | Recorrer el arreglo de vehículos registrados para mostrarlos en pantalla. |
+| Ciclos anidados (`for` dentro de `for`) | Calcular la cantidad de vehículos por tipo y por rol, recorriendo los 3 tipos/roles (ciclo externo) y comparando contra cada vehículo registrado (ciclo interno). |
+| Contadores | `n` (vehículos registrados) y los contadores por tipo/rol calculados en las estadísticas. |
+| Acumuladores | `totalHoras` y `totalRecaudado`, que se actualizan en cada registro. |
+
+> **Caso límite:** mostrar estadísticas o recaudación cuando aún no se ha registrado ningún vehículo (`n = 0`), y registrar un vehículo con boleto perdido (tarifa fija de $15 sin importar las horas).
+
+#### Análisis
+
+##### Entradas
+- Opción del menú `opcion` (1 a 5).
+- Tipo de vehículo `tipo` (1 Automóvil, 2 Moto, 3 Camioneta/Bus).
+- Rol `rol` (1 Estudiante, 2 Docente, 3 Visitante).
+- Número de horas `horas` (mayor que 0).
+- Día de la semana `dia` (1 = Lunes ... 7 = Domingo).
+- Boleto perdido `boletoPerdido` (`'S'` o `'N'`).
+
+##### Restricciones y validaciones
+- El menú se repite con `do-while` hasta que `opcion = 5`.
+- `tipo` y `rol` deben estar entre 1 y 3; cualquier otro valor se rechaza y se vuelve a pedir.
+- `horas` debe ser mayor que 0.
+- `dia` debe estar entre 1 y 7.
+- `boletoPerdido` solo acepta `'S'` o `'N'`.
+- No se permiten opciones de menú fuera del rango 1 a 5.
+- El arreglo de vehículos tiene un máximo de 50 registros (`MAX`).
+
+##### Procesos
+- Registrar vehículo: leer y validar los 5 datos, calcular la tarifa (fija de $15 si perdió el boleto; caso contrario, tarifa base del tipo × horas × descuento del rol × recargo de fin de semana si aplica), guardar el registro en los arreglos y actualizar `totalHoras` y `totalRecaudado`.
+- Mostrar vehículos registrados: recorrer con `for` el arreglo y mostrar los datos de cada vehículo.
+- Mostrar estadísticas: recorrer con ciclos anidados los tipos y roles para contar cuántos vehículos hay de cada uno, calcular el promedio de permanencia (`totalHoras / n`) y determinar el mayor y menor valor pagado.
+- Mostrar recaudación: mostrar `totalRecaudado`.
+- Salir: mostrar el reporte final completo y terminar el ciclo.
+
+##### Salidas
+- Confirmación y valor a pagar al registrar un vehículo.
+- Listado de vehículos registrados.
+- Estadísticas: cantidad total, por tipo, por rol, total de horas, promedio de permanencia, mayor y menor valor pagado.
+- Recaudación total.
+- Mensajes de error para datos u opciones inválidas.
+
+#### Diagrama de flujo
+<img width="4278" height="5208" alt="image" src="https://github.com/user-attachments/assets/50d91a40-afe7-42af-9f3c-449ea8ce9766" />
+
+
+
+#### Pseudocódigo
+
+```text
+Algoritmo ParqueaderoUniversitario
+    Definir MAX Como Entero
+    MAX <- 50
+
+    Dimension tipoVeh[MAX], rolVeh[MAX], diaVeh[MAX] Como Entero
+    Dimension boletoVeh[MAX] Como Caracter
+    Dimension horasVeh[MAX], valorVeh[MAX] Como Real
+
+    Definir n, opcion, tipo, rol, dia Como Entero
+    Definir horas, valor, tarifaBase, descuento, recargo Como Real
+    Definir boletoPerdido Como Caracter
+    Definir totalHoras, totalRecaudado Como Real
+    Definir contTipo, contRol Como Entero
+    Definir mayorValor, menorValor, promedio Como Real
+    Definir i, t, r Como Entero
+
+    n <- 0
+    totalHoras <- 0
+    totalRecaudado <- 0
+
+    Repetir
+        Escribir "================================="
+        Escribir "   PARQUEADERO UNIVERSITARIO"
+        Escribir "================================="
+        Escribir "1. Registrar vehiculo"
+        Escribir "2. Mostrar vehiculos registrados"
+        Escribir "3. Mostrar estadisticas"
+        Escribir "4. Mostrar recaudacion"
+        Escribir "5. Salir"
+        Escribir "================================="
+        Escribir "Seleccione una opcion: "
+        Leer opcion
+
+        Segun opcion Hacer
+
+            Caso 1:
+                Si n >= MAX Entonces
+                    Escribir "Parqueadero lleno. No se pueden registrar mas vehiculos"
+                SiNo
+                    Escribir "Tipo de vehiculo (1 Automovil, 2 Moto, 3 Camioneta/Bus): "
+                    Leer tipo
+                    Mientras tipo < 1 O tipo > 3 Hacer
+                        Escribir "Tipo invalido. Ingrese 1, 2 o 3: "
+                        Leer tipo
+                    FinMientras
+
+                    Escribir "Rol (1 Estudiante, 2 Docente, 3 Visitante): "
+                    Leer rol
+                    Mientras rol < 1 O rol > 3 Hacer
+                        Escribir "Rol invalido. Ingrese 1, 2 o 3: "
+                        Leer rol
+                    FinMientras
+
+                    Escribir "Numero de horas: "
+                    Leer horas
+                    Mientras horas <= 0 Hacer
+                        Escribir "Las horas deben ser mayores que cero: "
+                        Leer horas
+                    FinMientras
+
+                    Escribir "Dia de la semana (1 Lunes ... 7 Domingo): "
+                    Leer dia
+                    Mientras dia < 1 O dia > 7 Hacer
+                        Escribir "Dia invalido. Ingrese un valor entre 1 y 7: "
+                        Leer dia
+                    FinMientras
+
+                    Escribir "Perdio el boleto? (S/N): "
+                    Leer boletoPerdido
+                    Mientras boletoPerdido <> "S" Y boletoPerdido <> "N" Hacer
+                        Escribir "Respuesta invalida. Ingrese S o N: "
+                        Leer boletoPerdido
+                    FinMientras
+
+                    Si boletoPerdido = "S" Entonces
+                        valor <- 15
+                    SiNo
+                        Segun tipo Hacer
+                            Caso 1:
+                                tarifaBase <- 0.75
+                            Caso 2:
+                                tarifaBase <- 0.40
+                            Caso 3:
+                                tarifaBase <- 1.00
+                        FinSegun
+
+                        Segun rol Hacer
+                            Caso 1:
+                                descuento <- 0.50
+                            Caso 2:
+                                descuento <- 0.30
+                            Caso 3:
+                                descuento <- 0
+                        FinSegun
+
+                        Si dia = 6 O dia = 7 Entonces
+                            recargo <- 1.20
+                        SiNo
+                            recargo <- 1
+                        FinSi
+
+                        valor <- tarifaBase * horas * (1 - descuento) * recargo
+                    FinSi
+
+                    n <- n + 1
+                    tipoVeh[n] <- tipo
+                    rolVeh[n] <- rol
+                    horasVeh[n] <- horas
+                    diaVeh[n] <- dia
+                    boletoVeh[n] <- boletoPerdido
+                    valorVeh[n] <- valor
+
+                    totalHoras <- totalHoras + horas
+                    totalRecaudado <- totalRecaudado + valor
+
+                    Escribir "Vehiculo registrado. Valor a pagar: $", valor
+                FinSi
+
+            Caso 2:
+                Si n = 0 Entonces
+                    Escribir "No hay vehiculos registrados"
+                SiNo
+                    Para i <- 1 Hasta n Con Paso 1 Hacer
+                        Escribir "Vehiculo ", i, ": tipo=", tipoVeh[i], " rol=", rolVeh[i], " horas=", horasVeh[i], " dia=", diaVeh[i], " boleto perdido=", boletoVeh[i], " valor=$", valorVeh[i]
+                    FinPara
+                FinSi
+
+            Caso 3:
+                Si n = 0 Entonces
+                    Escribir "No hay datos para mostrar estadisticas"
+                SiNo
+                    Escribir "Vehiculos registrados: ", n
+
+                    // Ciclos anidados: cuenta por tipo (1 a 3)
+                    Para t <- 1 Hasta 3 Con Paso 1 Hacer
+                        contTipo <- 0
+                        Para i <- 1 Hasta n Con Paso 1 Hacer
+                            Si tipoVeh[i] = t Entonces
+                                contTipo <- contTipo + 1
+                            FinSi
+                        FinPara
+                        Escribir "Cantidad tipo ", t, ": ", contTipo
+                    FinPara
+
+                    // Ciclos anidados: cuenta por rol (1 a 3)
+                    Para r <- 1 Hasta 3 Con Paso 1 Hacer
+                        contRol <- 0
+                        Para i <- 1 Hasta n Con Paso 1 Hacer
+                            Si rolVeh[i] = r Entonces
+                                contRol <- contRol + 1
+                            FinSi
+                        FinPara
+                        Escribir "Cantidad rol ", r, ": ", contRol
+                    FinPara
+
+                    Escribir "Total de horas: ", totalHoras
+                    promedio <- totalHoras / n
+                    Escribir "Promedio de permanencia: ", promedio
+
+                    mayorValor <- valorVeh[1]
+                    menorValor <- valorVeh[1]
+                    Para i <- 2 Hasta n Con Paso 1 Hacer
+                        Si valorVeh[i] > mayorValor Entonces
+                            mayorValor <- valorVeh[i]
+                        FinSi
+                        Si valorVeh[i] < menorValor Entonces
+                            menorValor <- valorVeh[i]
+                        FinSi
+                    FinPara
+                    Escribir "Mayor valor pagado: $", mayorValor
+                    Escribir "Menor valor pagado: $", menorValor
+                FinSi
+
+            Caso 4:
+                Escribir "Total recaudado: $", totalRecaudado
+
+            Caso 5:
+                Escribir "Saliendo del sistema..."
+
+            De Otro Modo:
+                Escribir "Opcion invalida. Elija una opcion entre 1 y 5"
+        FinSegun
+
+        Escribir ""
+    Hasta Que opcion = 5
+
+    // Reporte final
+    Escribir "===== REPORTE FINAL ====="
+    Escribir "Vehiculos registrados: ", n
+    Escribir "Total de horas: ", totalHoras
+    Escribir "Total recaudado: $", totalRecaudado
+FinAlgoritmo
+```
+
+---
+
+#### Casos de prueba
+
+##### Prueba de escritorio — Ejercicio 10 (registro de 2 vehículos)
+
+| Paso | tipo | rol | horas | dia | boleto | valor | totalHoras | totalRecaudado | n |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Inicio** | - | - | - | - | - | - | 0 | 0 | 0 |
+| **Vehículo 1** | 1 (Auto) | 1 (Estudiante) | 4 | 3 (Miércoles) | N | 1.50 | 4 | 1.50 | 1 |
+| **Vehículo 2** | 3 (Camioneta) | 3 (Visitante) | 2 | 6 (Sábado) | N | 2.40 | 6 | 3.90 | 2 |
+| **Estadísticas** | - | - | - | - | - | - | - | - | Promedio = 3.0, mayor = $2.40, menor = $1.50 |
+
+> Cálculo vehículo 1: `0.75 * 4 * (1 - 0.50) * 1 = 1.50`.
+> Cálculo vehículo 2: `1.00 * 2 * (1 - 0) * 1.20 = 2.40`.
+
+##### Casos de validación
+
+| Caso | Entrada | Resultado esperado |
+| :--- | :--- | :--- |
+| **Tipo inválido** | `tipo = 5` | Muestra `"Tipo invalido"` y vuelve a solicitarlo. |
+| **Rol inválido** | `rol = 0` | Muestra `"Rol invalido"` y vuelve a solicitarlo. |
+| **Horas en cero o negativas** | `horas = 0` o `horas = -3` | Muestra `"Las horas deben ser mayores que cero"`. |
+| **Día inválido** | `dia = 8` | Muestra `"Dia invalido"` y vuelve a solicitarlo. |
+| **Boleto perdido inválido** | `boletoPerdido = "X"` | Muestra `"Respuesta invalida. Ingrese S o N"`. |
+| **Boleto perdido** | `boletoPerdido = "S"`, `horas = 10` | Se cobra tarifa fija de $15, sin importar las horas. |
+| **Fin de semana** | `dia = 7` (Domingo) | Se aplica el recargo de 20% sobre el valor calculado. |
+| **Sin vehículos registrados** | Elegir opción 3 o 4 con `n = 0` | Muestra `"No hay datos para mostrar estadisticas"` o `$0` en recaudación. |
+| **Un solo vehículo registrado** | `n = 1` | El mayor y el menor valor pagado son iguales al único valor registrado. |
+| **Opción de menú inválida** | `opcion = 9` | Muestra `"Opcion invalida"` y vuelve a mostrar el menú. |
+
+---
+---
+
+#### Capturas y evidencias
+
+##### Ejecución del programa
+
+<img width="1350" height="706" alt="image" src="https://github.com/user-attachments/assets/4b8ef9f5-b444-4c26-8b5f-174f730980e6" />
+
+
+---
+
+#### Conclusiones
+
+1. **Integración de todas las estructuras de control:**
+   El sistema combinó `do-while` para el menú principal, `switch` para las opciones y el cálculo de tarifas, `while` para validar cada dato ingresado, y `for` para recorrer los vehículos registrados, demostrando el uso conjunto de todas las estructuras vistas en el curso.
+
+2. **Ciclos anidados para generar estadísticas:**
+   Calcular la cantidad de vehículos por tipo y por rol mediante un `for` externo (que recorre las categorías) y un `for` interno (que recorre los registros) permitió obtener conteos exactos sin necesidad de contadores separados para cada combinación.
+
+3. **Tarifas dinámicas y validaciones robustas:**
+   Aplicar la tarifa base según el tipo de vehículo, el descuento según el rol y el recargo de fin de semana mostró cómo varias condiciones pueden combinarse en un solo cálculo, mientras las validaciones con `while` evitaron datos fuera de rango en cada campo.
+
+4. **Manejo de casos límite:**
+   Contemplar el registro sin vehículos, el boleto perdido y un solo vehículo registrado evitó errores como la división entre cero en el promedio de permanencia o resultados inconsistentes en el mayor/menor valor pagado.
