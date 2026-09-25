@@ -1662,26 +1662,26 @@ FinAlgoritmo
 
 ---
 
-### Tabla 1: Traza de Registro de Estudiantes y Acumuladores
+### Tabla 1: Registro de Estudiantes y Acumuladores
 
-| Estudiante (`i`) | Edad | Semestre | Horas | `sumaEdades` | `sumaHoras` | `maxHoras` | `estMax` | `menos2h` | Registro Semestres (`c1..c10`) |
+| Estudiante | Edad | Semestre | Horas | sumaEdades | sumaHoras | maxHoras | estMax | menos2h | Registro Semestres |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Inicio** | - | - | - | 0 | 0.0 | -1.0 | 0 | 0 | Todos en 0 |
-| **i = 1** | 19 | 1 | 1.5 | 19 | 1.5 | 1.5 | 1 | 1 | `c1 = 1` |
-| **i = 2** | 21 | 3 | 5.0 | 40 | 6.5 | 5.0 | 2 | 1 | `c3 = 1` |
-| **i = 3** | 20 | 1 | 0.5 | 60 | 7.0 | 5.0 | 2 | 2 | `c1 = 2` |
+| **Inicio** | -- | -- | -- | 0 | 0.0 | -1.0 | 0 | 0 | Todos en 0 |
+| **i = 1** | 19 | 1 | 1.5 | 19 | 1.5 | 1.5 | 1 | 1 | c1 = 1 |
+| **i = 2** | 21 | 3 | 5.0 | 40 | 6.5 | 5.0 | 2 | 1 | c3 = 1 |
+| **i = 3** | 20 | 1 | 0.5 | 60 | 7.0 | 5.0 | 2 | 2 | c1 = 2 |
 
 ---
 
 ### Tabla 2: Traza del Ciclo Anidado (Reporte por Semestre)
 
-| Semestre (`sem`) | Condición (`sem <= 10`) | `conteoSemestre` | Evaluado (`== 0`) | Sub-ciclo (`i`) | Salida Impresa |
+| Semestre | Condición | conteoSemestre | Evaluado | Sub-ciclo | Salida Impresa |
 | :---: | :---: | :---: | :---: | :---: | :--- |
-| **sem = 1** | 1 <= 10 (V) | 2 | Falso | 1, 2 | `Semestre 1: 2 est. -> **` |
-| **sem = 2** | 2 <= 10 (V) | 0 | Verdadero | - | `Semestre 2: 0 est. -> [Sin registros]` |
-| **sem = 3** | 3 <= 10 (V) | 1 | Falso | 1 | `Semestre 3: 1 est. -> *` |
-| **sem = 4..10** | Varios (V) | 0 | Verdadero | - | `Semestre X: 0 est. -> [Sin registros]` |
-| **sem = 11** | 11 <= 10 (F) | - | - | - | **Fin del Reporte** |
+| **sem = 1** | 1 <= 10 (V) | 2 | Falso | 1, 2 | Semestre 1: 2 est. -> ** |
+| **sem = 2** | 2 <= 10 (V) | 0 | Verdadero | -- | Semestre 2: 0 est. -> [Sin registros] |
+| **sem = 3** | 3 <= 10 (V) | 1 | Falso | 1 | Semestre 3: 1 est. -> * |
+| **sem = 4..10** | Varios (V) | 0 | Verdadero | -- | Semestre X: 0 est. -> [Sin registros] |
+| **sem = 11** | 11 <= 10 (F) | -- | -- | -- | [Fin del Reporte] |
 
 ---
 
@@ -1689,21 +1689,20 @@ FinAlgoritmo
 
 | Campo Evaluado | Valor Ingresado | Condición de Control | Resultado del Algoritmo | Estado |
 | :--- | :--- | :--- | :--- | :--- |
-| **Edad** | `14` | $14 < 16$ | Rechazado: Muestra error y pide reingreso. | Exitoso |
-| **Edad** | `85` | $85 > 80$ | Rechazado: Muestra error y pide reingreso. | Exitoso |
-| **Edad** | `20` | $16 \le 20 \le 80$ | Aceptado correctamente. | Exitoso |
-| **Semestre** | `0` | $0 < 1$ | Rechazado: Muestra error y pide reingreso. | Exitoso |
-| **Semestre** | `12` | $12 > 10$ | Rechazado: Muestra error y pide reingreso. | Exitoso |
-| **Semestre** | `5` | $1 \le 5 \le 10$ | Aceptado correctamente. | Exitoso |
-| **Horas de Estudio** | `-3` | $-3 < 0$ | Rechazado: Muestra error y pide reingreso. | Exitoso |
-| **Horas de Estudio** | `26` | $26 > 24$ | Rechazado: Muestra error y pide reingreso. | Exitoso |
-| **Horas de Estudio** | `4.5` | $0 \le 4.5 \le 24$ | Aceptado correctamente. | Exitoso |
-
+| **Edad** | `14` | 14 < 16 | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Edad** | `85` | 85 > 80 | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Edad** | `20` | 16 <= 20 <= 80 | Aceptado correctamente. | Exitoso |
+| **Semestre** | `0` | 0 < 1 | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Semestre** | `12` | 12 > 10 | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Semestre** | `5` | 1 <= 5 <= 10 | Aceptado correctamente. | Exitoso |
+| **Horas de Estudio** | `-3` | -3 < 0 | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Horas de Estudio** | `26` | 26 > 24 | Rechazado: Muestra error y pide reingreso. | Exitoso |
+| **Horas de Estudio** | `4.5` | 0 <= 4.5 <= 24 | Aceptado correctamente. | Exitoso |
 ---
 
 ## 8. Capturas y Evidencias de Ejecución
 
-<img width="1372" height="887" alt="image" src="https://github.com/user-attachments/assets/3d5e54fc-650c-431b-8b9f-e27173d869a5" />
+<img width="1372" height="887" alt="image" src="https://github.com/user-attachments/assets/2a45dfbd-a7f4-44de-81fd-5d510674ca43" />
 
 ---
 
