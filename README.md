@@ -118,7 +118,6 @@ Algoritmo ControlCalificaciones
         FinSi
     FinPara
 FinAlgoritmo
-```
 ---
 
 #### Casos de prueba
@@ -1650,7 +1649,7 @@ Algoritmo Estadisticas_Encuesta_Universitaria
 		FinSi
 	FinPara
 FinAlgoritmo
-´´´
+
 ---
 
 ## 6. Pruebas de Escritorio (Tabla de Traza Completa para N = 3)
@@ -1681,6 +1680,7 @@ FinAlgoritmo
 | **sem = 3** | 3 <= 10 (V) | 1 | Falso | 1 | Semestre 3: 1 est. -> * |
 | **sem = 4..10** | Varios (V) | 0 | Verdadero | -- | Semestre X: 0 est. -> [Sin registros] |
 | **sem = 11** | 11 <= 10 (F) | -- | -- | -- | [Fin del Reporte] |
+
 ---
 
 ## 7. Casos de Validación de Entrada
